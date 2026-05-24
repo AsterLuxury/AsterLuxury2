@@ -187,9 +187,13 @@ function renderProducts() {
                 <h3 class="product-title" data-id="${product.id}">Aster Piece</h3>
                 <div class="product-price">${product.price}</div>
                 <div class="product-actions">
+                    <button class="details-btn" data-id="${product.id}">
+                        <i class="fas fa-eye"></i>
+                        <span>View Details</span>
+                    </button>
                     <button class="whatsapp-btn" data-order-id="${product.id}">
                         <i class="fab fa-whatsapp"></i>
-                        <span>Order Now</span>
+                        <span>Order via WhatsApp</span>
                     </button>
                 </div>
             </div>
@@ -217,7 +221,7 @@ function renderProducts() {
 
 function attachProductHandlers() {
     // Open modal
-    $$('.product-image[data-id], .product-title[data-id], .product-quick-view[data-id]').forEach(el => {
+    $$('.product-image[data-id], .product-title[data-id], .product-quick-view[data-id], .details-btn[data-id]').forEach(el => {
         el.addEventListener('click', (e) => {
             e.stopPropagation();
             openModal(parseInt(el.dataset.id));
@@ -417,9 +421,13 @@ $('#favorites-btn').addEventListener('click', () => {
                 <h3 class="product-title" data-id="${product.id}">Aster Piece</h3>
                 <div class="product-price">${product.price}</div>
                 <div class="product-actions">
+                    <button class="details-btn" data-id="${product.id}">
+                        <i class="fas fa-eye"></i>
+                        <span>View Details</span>
+                    </button>
                     <button class="whatsapp-btn" data-order-id="${product.id}">
                         <i class="fab fa-whatsapp"></i>
-                        <span>Order Now</span>
+                        <span>Order via WhatsApp</span>
                     </button>
                 </div>
             </div>

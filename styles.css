@@ -2308,9 +2308,31 @@ footer {
 
 /* Quick buy link in modal */
 .cart-quick-buy {
-    margin-top: 12px;
+    margin-top: 14px;
     width: 100%;
     justify-content: center;
+    padding: 14px 20px;
+    background: color-mix(in oklab, var(--whatsapp) 12%, transparent);
+    border: 1.5px solid color-mix(in oklab, var(--whatsapp) 35%, transparent);
+    border-radius: var(--r-pill);
+    color: var(--whatsapp-dark, #128C7E);
+    font-weight: 600;
+    font-size: 0.88rem;
+    transition: all 0.3s var(--ease);
+}
+
+.cart-quick-buy::after {
+    display: none;
+}
+
+.cart-quick-buy:hover {
+    background: var(--whatsapp);
+    border-color: var(--whatsapp);
+    color: #ffffff;
+}
+
+.cart-quick-buy i.fa-whatsapp {
+    font-size: 1.1rem;
 }
 
 /* "In cart" state on product cards */
@@ -2510,18 +2532,26 @@ footer {
 
     .modal-grid {
         grid-template-columns: 1fr;
-        max-height: 100vh;
+        max-height: none;
+        overflow: visible;
     }
 
     .modal-shell {
         max-height: 100vh;
         border-radius: 0;
         height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .modal-img {
         aspect-ratio: 1 / 1;
         max-height: 50vh;
+    }
+
+    .modal-info {
+        overflow: visible;
+        padding: 24px 20px 32px;
     }
 
     .modal { padding: 0; }
@@ -2560,6 +2590,23 @@ footer {
     .cta-arrow {
         width: 42px;
         height: 42px;
+    }
+
+    .cta-block {
+        padding: 6px 6px 6px 22px;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+    }
+
+    .cta-block > span:first-child {
+        padding-block: 14px;
+    }
+
+    .cart-quick-buy {
+        font-size: 0.82rem;
+        padding: 13px 18px;
+        margin-top: 12px;
     }
 }
 

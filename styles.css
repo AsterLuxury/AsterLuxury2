@@ -1424,12 +1424,16 @@ em, .em {
     justify-content: space-between;
     gap: 12px;
     z-index: 2;
-    opacity: 0;
-    transform: translateY(8px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.4s var(--ease), transform 0.4s var(--ease);
 }
 
 @media (hover: hover) {
+    .card-quick {
+        opacity: 0;
+        transform: translateY(8px);
+    }
     .card:hover .card-quick {
         opacity: 1;
         transform: translateY(0);
@@ -2478,7 +2482,22 @@ footer {
         font-size: 0.6rem;
     }
 
-    .card-quick { display: none; }
+    .card-quick {
+        bottom: 8px;
+        left: 8px;
+        right: 8px;
+        padding: 8px 10px;
+    }
+
+    .card-quick-text {
+        font-size: 0.65rem;
+    }
+
+    .card-quick-order {
+        width: 28px;
+        height: 28px;
+        font-size: 0.75rem;
+    }
 
     .footer-grid {
         grid-template-columns: 1fr;

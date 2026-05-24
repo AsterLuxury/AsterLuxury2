@@ -226,6 +226,8 @@ function renderGrid() {
 }
 
 function attachCardHandlers() {
+    // Use event delegation on the grid for resilience
+    // (handlers are attached once per render via fresh elements)
     $$('.card').forEach(card => {
         card.addEventListener('click', (e) => {
             if (e.target.closest('[data-fav]') || e.target.closest('[data-add]') || e.target.closest('[data-order]')) return;
@@ -236,6 +238,7 @@ function attachCardHandlers() {
     $$('[data-fav]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
             toggleFav(parseInt(btn.dataset.fav));
         });
     });
@@ -243,6 +246,7 @@ function attachCardHandlers() {
     $$('[data-add]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
             addToCart(parseInt(btn.dataset.add));
         });
     });
@@ -250,6 +254,7 @@ function attachCardHandlers() {
     $$('[data-order]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
+            e.preventDefault();
             quickOrder(parseInt(btn.dataset.order));
         });
     });
@@ -595,7 +600,11 @@ const cartDrawer = $('#cart-drawer');
 const cartBody = $('#cart-body');
 
 function saveCart() {
-    localStorage.setItem('aster_cart', JSON.stringify(cart));
+    try {
+        localStorage.setItem('aster_cart', JSON.stringify(cart));
+    } catch (e) {
+        console.warn('Could not save cart', e);
+    }
 }
 
 function addToCart(id, qty = 1) {
@@ -726,18 +735,29 @@ function renderCart() {
 
     $('#cart-items-count').textContent = itemCount + ' piece' + (itemCount !== 1 ? 's' : '');
     $('#cart-total').textContent = formatIQD(total);
-
-    // Wire item handlers
-    $$('[data-cart-remove]', cartBody).forEach(b => {
-        b.addEventListener('click', () => removeFromCart(parseInt(b.dataset.cartRemove)));
-    });
-    $$('[data-cart-inc]', cartBody).forEach(b => {
-        b.addEventListener('click', () => updateCartQty(parseInt(b.dataset.cartInc), 1));
-    });
-    $$('[data-cart-dec]', cartBody).forEach(b => {
-        b.addEventListener('click', () => updateCartQty(parseInt(b.dataset.cartDec), -1));
-    });
 }
+
+// Event delegation for cart item controls (attached once)
+cartBody.addEventListener('click', (e) => {
+    const removeBtn = e.target.closest('[data-cart-remove]');
+    if (removeBtn) {
+        e.preventDefault();
+        removeFromCart(parseInt(removeBtn.dataset.cartRemove));
+        return;
+    }
+    const incBtn = e.target.closest('[data-cart-inc]');
+    if (incBtn) {
+        e.preventDefault();
+        updateCartQty(parseInt(incBtn.dataset.cartInc), 1);
+        return;
+    }
+    const decBtn = e.target.closest('[data-cart-dec]');
+    if (decBtn) {
+        e.preventDefault();
+        updateCartQty(parseInt(decBtn.dataset.cartDec), -1);
+        return;
+    }
+});
 
 function openCart() {
     renderCart();
@@ -750,25 +770,40 @@ function closeCart() {
     document.body.style.overflow = '';
 }
 
-$('#cart-btn').addEventListener('click', openCart);
-
-$$('[data-cart-close]').forEach(el => {
-    el.addEventListener('click', closeCart);
+// Use event delegation on document.body so this works even if DOM changes
+document.body.addEventListener('click', (e) => {
+    // Cart icon — open drawer
+    if (e.target.closest('#cart-btn')) {
+        e.preventDefault();
+        openCart();
+        return;
+    }
+    // Anything with data-cart-close — close drawer
+    if (e.target.closest('[data-cart-close]')) {
+        e.preventDefault();
+        closeCart();
+        return;
+    }
+    // Cart clear
+    if (e.target.closest('#cart-clear')) {
+        e.preventDefault();
+        if (cart.length === 0) return;
+        if (confirm('Remove all pieces from your cart?')) clearCart();
+        return;
+    }
+    // Send order via WhatsApp
+    if (e.target.closest('#cart-order')) {
+        e.preventDefault();
+        sendCartOrder();
+        return;
+    }
 });
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && cartDrawer.getAttribute('aria-hidden') === 'false') closeCart();
 });
 
-$('#cart-clear').addEventListener('click', () => {
-    if (cart.length === 0) return;
-    if (confirm('Remove all pieces from your cart?')) {
-        clearCart();
-    }
-});
-
-// Send cart order to WhatsApp
-$('#cart-order').addEventListener('click', () => {
+function sendCartOrder() {
     if (cart.length === 0) return;
 
     let total = 0;
@@ -786,7 +821,7 @@ $('#cart-order').addEventListener('click', () => {
     const msg = `Hello Aster Luxury,\n\nI would like to order the following pieces:\n\n${lines}\n\n────────────────\nTotal pieces: ${totalQty}\nEstimated total: ${formatIQD(total)}\n\nPlease confirm availability and delivery details. Thank you!`;
 
     window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
-});
+}
 
 // ==========================================================
 // INIT

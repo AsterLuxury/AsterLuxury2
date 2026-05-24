@@ -1,91 +1,99 @@
-/* ===================================
-   ASTER LUXURY - Premium Interactions
-   =================================== */
+/* ==========================================================
+   ASTER LUXURY — 2026 Refined Edition
+   ========================================================== */
 
-// Product Data — using elegant reference codes (no mismatched names/descriptions)
 const products = [
-    { id: 1,  ref: "AL-001", image: "https://i.imgur.com/OErot48.jpg", category: "trending", tags: ["trending", "namaya"], price: "11,000 IQD" },
-    { id: 2,  ref: "AL-002", image: "https://i.imgur.com/z00Aaai.jpg", category: "trending", tags: ["trending"], price: "8,000 IQD" },
-    { id: 3,  ref: "AL-003", image: "https://i.imgur.com/JjaaugF.jpg", category: "new", tags: ["new"], price: "10,000 IQD" },
-    { id: 4,  ref: "AL-004", image: "https://i.imgur.com/Kte7nzq.jpg", category: "exclusive", tags: ["exclusive"], price: "10,000 IQD" },
-    { id: 5,  ref: "AL-005", image: "https://i.imgur.com/PRowWfH.jpg", category: "new", tags: ["new"], price: "10,000 IQD" },
-    { id: 6,  ref: "AL-006", image: "https://i.imgur.com/SoydXG2.jpg", category: "new", tags: ["new", "namaya"], price: "9,000 IQD" },
-    { id: 7,  ref: "AL-007", image: "https://i.imgur.com/TlQPNKR.jpg", category: "trending", tags: ["trending"], price: "9,000 IQD" },
-    { id: 8,  ref: "AL-008", image: "https://i.imgur.com/RrOwOVh.jpg", category: "limited", tags: ["limited"], price: "8,000 IQD" },
-    { id: 9,  ref: "AL-009", image: "https://i.imgur.com/Eg3uzN3.jpg", category: "exclusive", tags: ["exclusive"], price: "8,000 IQD" },
-    { id: 10, ref: "AL-010", image: "https://i.imgur.com/f5zWQHf.jpg", category: "trending", tags: ["trending"], price: "9,000 IQD" },
-    { id: 11, ref: "AL-011", image: "https://i.imgur.com/fxUaMQ4.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 12, ref: "AL-012", image: "https://i.imgur.com/LTpzHsW.jpg", category: "exclusive", tags: ["exclusive"], price: "11,000 IQD" },
-    { id: 13, ref: "AL-013", image: "https://i.imgur.com/mXV7gBZ.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 14, ref: "AL-014", image: "https://i.imgur.com/A3LfT29.jpg", category: "limited", tags: ["limited"], price: "10,000 IQD" },
-    { id: 15, ref: "AL-015", image: "https://i.imgur.com/m0g8dYS.jpg", category: "trending", tags: ["trending", "namaya"], price: "12,000 IQD" },
-    { id: 16, ref: "AL-016", image: "https://i.imgur.com/RHdbyM9.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 17, ref: "AL-017", image: "https://i.imgur.com/Szffcti.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 18, ref: "AL-018", image: "https://i.imgur.com/hDa2JGY.jpg", category: "trending", tags: ["trending"], price: "10,000 IQD" },
-    { id: 19, ref: "AL-019", image: "https://i.imgur.com/kPNgeOX.jpg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" },
-    { id: 20, ref: "AL-020", image: "https://i.imgur.com/UyzPCFl.jpg", category: "trending", tags: ["trending", "namaya"], price: "10,000 IQD" },
-    { id: 21, ref: "AL-021", image: "https://i.imgur.com/17uGewM.jpg", category: "new", tags: ["new"], price: "8,000 IQD" },
-    { id: 22, ref: "AL-022", image: "https://i.imgur.com/UrHw9dD.jpg", category: "exclusive", tags: ["exclusive"], price: "8,000 IQD" },
-    { id: 23, ref: "AL-023", image: "https://i.imgur.com/zXIfG8s.jpg", category: "new", tags: ["new"], price: "8,000 IQD" },
-    { id: 24, ref: "AL-024", image: "https://i.imgur.com/6k1vRsV.jpg", category: "limited", tags: ["limited"], price: "9,000 IQD" },
-    { id: 25, ref: "AL-025", image: "https://i.imgur.com/PV0i4eB.jpg", category: "trending", tags: ["trending"], price: "9,000 IQD" },
-    { id: 26, ref: "AL-026", image: "https://i.imgur.com/FXHd5nO.jpg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" },
-    { id: 27, ref: "AL-027", image: "https://i.imgur.com/ZdkqaU9.jpg", category: "new", tags: ["new"], price: "8,000 IQD" },
-    { id: 28, ref: "AL-028", image: "https://i.imgur.com/Av9tP4X.jpg", category: "trending", tags: ["trending", "namaya"], price: "11,000 IQD" },
-    { id: 29, ref: "AL-029", image: "https://i.imgur.com/0puuuwV.jpg", category: "limited", tags: ["limited"], price: "9,000 IQD" },
-    { id: 30, ref: "AL-030", image: "https://i.imgur.com/QhhGmoY.jpg", category: "exclusive", tags: ["exclusive"], price: "8,500 IQD" },
-    { id: 31, ref: "AL-031", image: "https://i.imgur.com/s3iVoL3.jpg", category: "exclusive", tags: ["exclusive", "namaya"], price: "10,000 IQD" },
-    { id: 32, ref: "AL-032", image: "https://i.imgur.com/ruRRtpN.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 33, ref: "AL-033", image: "https://i.imgur.com/4DhDOLu.jpg", category: "trending", tags: ["trending"], price: "8,000 IQD" },
-    { id: 34, ref: "AL-034", image: "https://i.imgur.com/NK4CVZ3.jpg", category: "exclusive", tags: ["exclusive"], price: "8,000 IQD" },
-    { id: 35, ref: "AL-035", image: "https://i.imgur.com/nxvRYVN.jpg", category: "new", tags: ["new"], price: "8,000 IQD" },
-    { id: 36, ref: "AL-036", image: "https://i.imgur.com/qSaBKBn.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 37, ref: "AL-037", image: "https://i.imgur.com/QEZ3xNx.jpg", category: "trending", tags: ["trending"], price: "9,000 IQD" },
-    { id: 38, ref: "AL-038", image: "https://i.imgur.com/NotI5dR.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 39, ref: "AL-039", image: "https://i.imgur.com/y4S1ViE.jpg", category: "limited", tags: ["limited"], price: "8,000 IQD" },
-    { id: 40, ref: "AL-040", image: "https://i.imgur.com/8j4QokS.jpg", category: "trending", tags: ["trending"], price: "9,000 IQD" },
-    { id: 41, ref: "AL-041", image: "https://i.imgur.com/pHJk2Xe.jpg", category: "new", tags: ["new", "namaya"], price: "10,000 IQD" },
-    { id: 42, ref: "AL-042", image: "https://i.imgur.com/iFkcaIE.jpg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" },
-    { id: 43, ref: "AL-043", image: "https://i.imgur.com/OrhpKkD.jpg", category: "trending", tags: ["trending"], price: "8,000 IQD" },
-    { id: 44, ref: "AL-044", image: "https://i.imgur.com/MKITY3l.jpg", category: "exclusive", tags: ["exclusive"], price: "10,000 IQD" },
-    { id: 45, ref: "AL-045", image: "https://i.imgur.com/yZ6MkCb.jpg", category: "limited", tags: ["limited"], price: "9,000 IQD" },
-    { id: 46, ref: "AL-046", image: "https://i.imgur.com/TaEqJ6k.jpg", category: "new", tags: ["new"], price: "9,000 IQD" },
-    { id: 47, ref: "AL-047", image: "https://i.imgur.com/zm6HOdR.jpg", category: "trending", tags: ["trending"], price: "8,000 IQD" },
-    { id: 48, ref: "AL-048", image: "https://i.imgur.com/Jo0v8yf.jpg", category: "new", tags: ["new"], price: "8,000 IQD" },
-    { id: 49, ref: "AL-049", image: "https://i.imgur.com/A2dYFIx.jpg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" },
-    { id: 50, ref: "AL-050", image: "https://i.imgur.com/4jGltwy.jpg", category: "trending", tags: ["trending"], price: "8,000 IQD" },
-    { id: 52, ref: "AL-052", image: "https://i.imgur.com/MBZbuLs.jpg", category: "new", tags: ["new"], price: "11,000 IQD" },
-    { id: 53, ref: "AL-053", image: "https://i.imgur.com/Jt5Je1s.jpg", category: "new", tags: ["new"], price: "10,000 IQD" },
-    { id: 54, ref: "AL-054", image: "https://i.imgur.com/Gc8080H.jpg", category: "trending", tags: ["trending"], price: "10,000 IQD" },
-    { id: 55, ref: "AL-055", image: "https://i.imgur.com/motIsvg.jpg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" },
-    { id: 56, ref: "AL-056", image: "https://i.imgur.com/uncBlEB.jpeg", category: "exclusive", tags: ["exclusive"], price: "9,000 IQD" }
+    { id: 1,  ref: "AL-001", image: "https://i.imgur.com/OErot48.jpg", tags: ["trending", "namaya"], price: "11,000 IQD" },
+    { id: 2,  ref: "AL-002", image: "https://i.imgur.com/z00Aaai.jpg", tags: ["trending"], price: "8,000 IQD" },
+    { id: 3,  ref: "AL-003", image: "https://i.imgur.com/JjaaugF.jpg", tags: ["new"], price: "10,000 IQD" },
+    { id: 4,  ref: "AL-004", image: "https://i.imgur.com/Kte7nzq.jpg", tags: ["exclusive"], price: "10,000 IQD" },
+    { id: 5,  ref: "AL-005", image: "https://i.imgur.com/PRowWfH.jpg", tags: ["new"], price: "10,000 IQD" },
+    { id: 6,  ref: "AL-006", image: "https://i.imgur.com/SoydXG2.jpg", tags: ["new", "namaya"], price: "9,000 IQD" },
+    { id: 7,  ref: "AL-007", image: "https://i.imgur.com/TlQPNKR.jpg", tags: ["trending"], price: "9,000 IQD" },
+    { id: 8,  ref: "AL-008", image: "https://i.imgur.com/RrOwOVh.jpg", tags: ["limited"], price: "8,000 IQD" },
+    { id: 9,  ref: "AL-009", image: "https://i.imgur.com/Eg3uzN3.jpg", tags: ["exclusive"], price: "8,000 IQD" },
+    { id: 10, ref: "AL-010", image: "https://i.imgur.com/f5zWQHf.jpg", tags: ["trending"], price: "9,000 IQD" },
+    { id: 11, ref: "AL-011", image: "https://i.imgur.com/fxUaMQ4.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 12, ref: "AL-012", image: "https://i.imgur.com/LTpzHsW.jpg", tags: ["exclusive"], price: "11,000 IQD" },
+    { id: 13, ref: "AL-013", image: "https://i.imgur.com/mXV7gBZ.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 14, ref: "AL-014", image: "https://i.imgur.com/A3LfT29.jpg", tags: ["limited"], price: "10,000 IQD" },
+    { id: 15, ref: "AL-015", image: "https://i.imgur.com/m0g8dYS.jpg", tags: ["trending", "namaya"], price: "12,000 IQD" },
+    { id: 16, ref: "AL-016", image: "https://i.imgur.com/RHdbyM9.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 17, ref: "AL-017", image: "https://i.imgur.com/Szffcti.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 18, ref: "AL-018", image: "https://i.imgur.com/hDa2JGY.jpg", tags: ["trending"], price: "10,000 IQD" },
+    { id: 19, ref: "AL-019", image: "https://i.imgur.com/kPNgeOX.jpg", tags: ["exclusive"], price: "9,000 IQD" },
+    { id: 20, ref: "AL-020", image: "https://i.imgur.com/UyzPCFl.jpg", tags: ["trending", "namaya"], price: "10,000 IQD" },
+    { id: 21, ref: "AL-021", image: "https://i.imgur.com/17uGewM.jpg", tags: ["new"], price: "8,000 IQD" },
+    { id: 22, ref: "AL-022", image: "https://i.imgur.com/UrHw9dD.jpg", tags: ["exclusive"], price: "8,000 IQD" },
+    { id: 23, ref: "AL-023", image: "https://i.imgur.com/zXIfG8s.jpg", tags: ["new"], price: "8,000 IQD" },
+    { id: 24, ref: "AL-024", image: "https://i.imgur.com/6k1vRsV.jpg", tags: ["limited"], price: "9,000 IQD" },
+    { id: 25, ref: "AL-025", image: "https://i.imgur.com/PV0i4eB.jpg", tags: ["trending"], price: "9,000 IQD" },
+    { id: 26, ref: "AL-026", image: "https://i.imgur.com/FXHd5nO.jpg", tags: ["exclusive"], price: "9,000 IQD" },
+    { id: 27, ref: "AL-027", image: "https://i.imgur.com/ZdkqaU9.jpg", tags: ["new"], price: "8,000 IQD" },
+    { id: 28, ref: "AL-028", image: "https://i.imgur.com/Av9tP4X.jpg", tags: ["trending", "namaya"], price: "11,000 IQD" },
+    { id: 29, ref: "AL-029", image: "https://i.imgur.com/0puuuwV.jpg", tags: ["limited"], price: "9,000 IQD" },
+    { id: 30, ref: "AL-030", image: "https://i.imgur.com/QhhGmoY.jpg", tags: ["exclusive"], price: "8,500 IQD" },
+    { id: 31, ref: "AL-031", image: "https://i.imgur.com/s3iVoL3.jpg", tags: ["exclusive", "namaya"], price: "10,000 IQD" },
+    { id: 32, ref: "AL-032", image: "https://i.imgur.com/ruRRtpN.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 33, ref: "AL-033", image: "https://i.imgur.com/4DhDOLu.jpg", tags: ["trending"], price: "8,000 IQD" },
+    { id: 34, ref: "AL-034", image: "https://i.imgur.com/NK4CVZ3.jpg", tags: ["exclusive"], price: "8,000 IQD" },
+    { id: 35, ref: "AL-035", image: "https://i.imgur.com/nxvRYVN.jpg", tags: ["new"], price: "8,000 IQD" },
+    { id: 36, ref: "AL-036", image: "https://i.imgur.com/qSaBKBn.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 37, ref: "AL-037", image: "https://i.imgur.com/QEZ3xNx.jpg", tags: ["trending"], price: "9,000 IQD" },
+    { id: 38, ref: "AL-038", image: "https://i.imgur.com/NotI5dR.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 39, ref: "AL-039", image: "https://i.imgur.com/y4S1ViE.jpg", tags: ["limited"], price: "8,000 IQD" },
+    { id: 40, ref: "AL-040", image: "https://i.imgur.com/8j4QokS.jpg", tags: ["trending"], price: "9,000 IQD" },
+    { id: 41, ref: "AL-041", image: "https://i.imgur.com/pHJk2Xe.jpg", tags: ["new", "namaya"], price: "10,000 IQD" },
+    { id: 42, ref: "AL-042", image: "https://i.imgur.com/iFkcaIE.jpg", tags: ["exclusive"], price: "9,000 IQD" },
+    { id: 43, ref: "AL-043", image: "https://i.imgur.com/OrhpKkD.jpg", tags: ["trending"], price: "8,000 IQD" },
+    { id: 44, ref: "AL-044", image: "https://i.imgur.com/MKITY3l.jpg", tags: ["exclusive"], price: "10,000 IQD" },
+    { id: 45, ref: "AL-045", image: "https://i.imgur.com/yZ6MkCb.jpg", tags: ["limited"], price: "9,000 IQD" },
+    { id: 46, ref: "AL-046", image: "https://i.imgur.com/TaEqJ6k.jpg", tags: ["new"], price: "9,000 IQD" },
+    { id: 47, ref: "AL-047", image: "https://i.imgur.com/zm6HOdR.jpg", tags: ["trending"], price: "8,000 IQD" },
+    { id: 48, ref: "AL-048", image: "https://i.imgur.com/Jo0v8yf.jpg", tags: ["new"], price: "8,000 IQD" },
+    { id: 49, ref: "AL-049", image: "https://i.imgur.com/A2dYFIx.jpg", tags: ["exclusive"], price: "9,000 IQD" },
+    { id: 50, ref: "AL-050", image: "https://i.imgur.com/4jGltwy.jpg", tags: ["trending"], price: "8,000 IQD" },
+    { id: 52, ref: "AL-052", image: "https://i.imgur.com/MBZbuLs.jpg", tags: ["new"], price: "11,000 IQD" },
+    { id: 53, ref: "AL-053", image: "https://i.imgur.com/Jt5Je1s.jpg", tags: ["new"], price: "10,000 IQD" },
+    { id: 54, ref: "AL-054", image: "https://i.imgur.com/Gc8080H.jpg", tags: ["trending"], price: "10,000 IQD" },
+    { id: 55, ref: "AL-055", image: "https://i.imgur.com/motIsvg.jpg", tags: ["exclusive"], price: "9,000 IQD" },
+    { id: 56, ref: "AL-056", image: "https://i.imgur.com/uncBlEB.jpeg", tags: ["exclusive"], price: "9,000 IQD" }
 ];
 
-const WHATSAPP_NUMBER = "9647503307830";
-const INITIAL_LOAD = 12;
-const LOAD_INCREMENT = 12;
+const WA = "9647503307830";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 let currentFilter = 'all';
-let displayedCount = INITIAL_LOAD;
 let currentProduct = null;
-let favorites = JSON.parse(localStorage.getItem('aster_favorites') || '[]');
+let favorites = JSON.parse(localStorage.getItem('aster_favs') || '[]');
+let cart = JSON.parse(localStorage.getItem('aster_cart') || '[]');
 
-// ===================================
+// ==========================================================
 // HELPERS
-// ===================================
-const $ = (sel) => document.querySelector(sel);
-const $$ = (sel) => document.querySelectorAll(sel);
+// ==========================================================
+function priceToNumber(priceStr) {
+    return parseInt(priceStr.replace(/[^0-9]/g, ''), 10) || 0;
+}
 
-function getBadgeText(product) {
-    if (product.tags.includes('limited')) return 'Limited';
-    if (product.tags.includes('exclusive')) return 'Exclusive';
-    if (product.tags.includes('new')) return 'New';
-    if (product.tags.includes('trending')) return 'Trending';
+function formatIQD(n) {
+    return n.toLocaleString('en-US') + ' IQD';
+}
+function badgeText(p) {
+    if (p.tags.includes('limited')) return 'Limited';
+    if (p.tags.includes('exclusive')) return 'Exclusive';
+    if (p.tags.includes('namaya')) return 'Namaya';
+    if (p.tags.includes('new')) return 'New';
+    if (p.tags.includes('trending')) return 'Trending';
     return 'Featured';
 }
 
-function isBadgeGold(product) {
-    return product.tags.includes('limited') || product.tags.includes('exclusive');
+function isFeatured(p) {
+    return p.tags.includes('limited') || p.tags.includes('exclusive') || p.tags.includes('namaya');
+}
+
+function tagDisplay(p) {
+    return p.tags[0].charAt(0).toUpperCase() + p.tags[0].slice(1);
 }
 
 function getFiltered() {
@@ -93,294 +101,308 @@ function getFiltered() {
     return products.filter(p => p.tags.includes(currentFilter));
 }
 
-// ===================================
-// LOADER
-// ===================================
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        $('#loader').classList.add('hidden');
-    }, 800);
-});
+// ==========================================================
+// PROGRESS BAR (fallback for browsers without scroll-driven anim)
+// ==========================================================
+const progressFill = $('#progress-fill');
+if (!CSS.supports('animation-timeline: scroll()')) {
+    window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        progressFill.style.width = scrolled + '%';
+    }, { passive: true });
+}
 
-// ===================================
+// ==========================================================
 // HEADER SCROLL
-// ===================================
+// ==========================================================
 const header = $('#header');
+let lastY = 0;
 window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 20);
+    lastY = y;
+}, { passive: true });
 
-// ===================================
+// ==========================================================
 // MOBILE MENU
-// ===================================
+// ==========================================================
 const menuToggle = $('#menu-toggle');
 const mobileMenu = $('#mobile-menu');
 
 menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    const open = mobileMenu.classList.toggle('open');
+    menuToggle.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
 });
 
-$$('.mobile-menu a[href^="#"]').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
+$$('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
+        menuToggle.classList.remove('active');
         document.body.style.overflow = '';
     });
 });
 
-// ===================================
-// HERO PARTICLES
-// ===================================
-function createParticles() {
-    const container = $('#particles');
-    if (!container) return;
-    const count = window.innerWidth < 768 ? 15 : 30;
-    for (let i = 0; i < count; i++) {
-        const p = document.createElement('div');
-        p.className = 'particle';
-        const size = Math.random() * 4 + 1;
-        p.style.width = size + 'px';
-        p.style.height = size + 'px';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (Math.random() * 15 + 10) + 's';
-        p.style.animationDelay = Math.random() * 15 + 's';
-        container.appendChild(p);
-    }
+// ==========================================================
+// FILTER COUNTS
+// ==========================================================
+function updateCounts() {
+    $('#count-all').textContent = products.length;
+    ['new', 'trending', 'exclusive', 'limited', 'namaya'].forEach(t => {
+        const el = $(`#count-${t}`);
+        if (el) el.textContent = products.filter(p => p.tags.includes(t)).length;
+    });
 }
-createParticles();
 
-// ===================================
-// PRODUCT RENDERING
-// ===================================
-function renderProducts() {
-    const grid = $('#product-grid');
-    const filtered = getFiltered();
-    const toShow = filtered.slice(0, displayedCount);
+// ==========================================================
+// PRODUCT GRID (all visible, refined stagger)
+// ==========================================================
+const grid = $('#grid');
+const empty = $('#empty');
+const visibleCount = $('#visible-count');
 
+function renderGrid() {
+    const list = getFiltered();
     grid.innerHTML = '';
 
-    toShow.forEach((product, index) => {
-        const isFav = favorites.includes(product.id);
-        const badgeText = getBadgeText(product);
-        const badgeClass = isBadgeGold(product) ? 'gold' : '';
+    if (list.length === 0) {
+        empty.hidden = false;
+        visibleCount.textContent = 0;
+        return;
+    }
+    empty.hidden = true;
+    visibleCount.textContent = list.length;
 
+    const frag = document.createDocumentFragment();
+    list.forEach((p, i) => {
+        const isFav = favorites.includes(p.id);
+        const inCart = cart.some(c => c.id === p.id);
         const card = document.createElement('article');
-        card.className = 'product-card';
-        card.style.transitionDelay = (index % 12) * 50 + 'ms';
+        card.className = 'card' + (inCart ? ' in-cart' : '');
+        card.dataset.id = p.id;
+        card.style.transitionDelay = Math.min(i * 30, 600) + 'ms';
         card.innerHTML = `
-            <div class="product-image" data-id="${product.id}">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                <button class="product-fav ${isFav ? 'active' : ''}" data-id="${product.id}" aria-label="Favorite">
+            <div class="card-frame">
+                <span class="card-badge ${isFeatured(p) ? 'featured' : ''}">${badgeText(p)}</span>
+                <button class="heart-btn ${isFav ? 'active' : ''}" data-fav="${p.id}" aria-label="Favorite">
                     <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
                 </button>
-                <img src="${product.image}" alt="Aster Luxury ${product.ref}" loading="lazy">
-                <span class="product-quick-view" data-id="${product.id}">Quick View</span>
-            </div>
-            <div class="product-info">
-                <span class="product-ref">Ref. ${product.ref}</span>
-                <h3 class="product-title" data-id="${product.id}">Aster Piece</h3>
-                <div class="product-price">${product.price}</div>
-                <div class="product-actions">
-                    <button class="details-btn" data-id="${product.id}">
-                        <i class="fas fa-eye"></i>
-                        <span>View Details</span>
-                    </button>
-                    <button class="whatsapp-btn" data-order-id="${product.id}">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Order via WhatsApp</span>
+                <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
+                <div class="card-quick">
+                    <span class="card-quick-text">${inCart ? 'Added · view detail' : 'View detail'}</span>
+                    <button class="card-quick-order" data-add="${p.id}" aria-label="${inCart ? 'In cart' : 'Add to cart'}" title="${inCart ? 'In cart' : 'Add to cart'}">
+                        <i class="fas ${inCart ? 'fa-check' : 'fa-plus'}"></i>
                     </button>
                 </div>
             </div>
+            <div class="card-meta">
+                <span class="card-ref">Ref. ${p.ref}</span>
+                <span class="card-tag">${tagDisplay(p)}</span>
+            </div>
+            <h3 class="card-name"><em>Aster</em>Piece</h3>
+            <span class="card-price">${p.price}</span>
         `;
-        grid.appendChild(card);
+        frag.appendChild(card);
     });
+    grid.appendChild(frag);
 
-    // Trigger reveal animation
-    requestAnimationFrame(() => {
-        $$('.product-card').forEach((card, i) => {
-            setTimeout(() => card.classList.add('visible'), i * 30);
-        });
-    });
-
-    // Update load more button
-    const loadMoreWrapper = $('.load-more-wrapper');
-    if (filtered.length <= displayedCount) {
-        loadMoreWrapper.classList.add('hidden');
+    // Reveal each card as it enters viewport
+    const cards = $$('.card', grid);
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+        cards.forEach(c => obs.observe(c));
     } else {
-        loadMoreWrapper.classList.remove('hidden');
+        cards.forEach(c => c.classList.add('in'));
     }
 
-    attachProductHandlers();
+    attachCardHandlers();
 }
 
-function attachProductHandlers() {
-    // Open modal
-    $$('.product-image[data-id], .product-title[data-id], .product-quick-view[data-id], .details-btn[data-id]').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(parseInt(el.dataset.id));
+function attachCardHandlers() {
+    // Use event delegation on the grid for resilience
+    // (handlers are attached once per render via fresh elements)
+    $$('.card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('[data-fav]') || e.target.closest('[data-add]') || e.target.closest('[data-order]')) return;
+            openModal(parseInt(card.dataset.id));
         });
     });
 
-    // Quick order
-    $$('.whatsapp-btn[data-order-id]').forEach(btn => {
+    $$('[data-fav]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            quickOrder(parseInt(btn.dataset.orderId));
+            e.preventDefault();
+            toggleFav(parseInt(btn.dataset.fav));
         });
     });
 
-    // Favorite
-    $$('.product-fav[data-id]').forEach(btn => {
+    $$('[data-add]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            toggleFavorite(parseInt(btn.dataset.id));
+            e.preventDefault();
+            addToCart(parseInt(btn.dataset.add));
+        });
+    });
+
+    $$('[data-order]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            e.preventDefault();
+            quickOrder(parseInt(btn.dataset.order));
         });
     });
 }
 
-// ===================================
+// ==========================================================
 // FILTERS
-// ===================================
-$$('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        $$('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        displayedCount = INITIAL_LOAD;
-        renderProducts();
+// ==========================================================
+$$('.chip[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+        $$('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        renderGrid();
     });
 });
 
-// Quick filter from footer
+// Footer quick filters
 $$('[data-quick-filter]').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = link.dataset.quickFilter;
-        const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
-        if (btn) btn.click();
-        document.getElementById('collections').scrollIntoView({ behavior: 'smooth' });
+        const chip = $(`.chip[data-filter="${filter}"]`);
+        if (chip) chip.click();
+        $('#shop').scrollIntoView({ behavior: 'smooth' });
     });
 });
 
-// ===================================
-// LOAD MORE
-// ===================================
-$('#load-more').addEventListener('click', () => {
-    displayedCount += LOAD_INCREMENT;
-    renderProducts();
+// Empty state reset
+$('.empty button')?.addEventListener('click', () => {
+    $('.chip[data-filter="all"]').click();
 });
 
-// ===================================
+// ==========================================================
+// VIEW DENSITY TOGGLE
+// ==========================================================
+const viewToggle = $('#view-toggle');
+viewToggle.addEventListener('click', () => {
+    grid.classList.toggle('dense');
+    viewToggle.classList.toggle('dense');
+    const isDense = grid.classList.contains('dense');
+    viewToggle.querySelector('i').className = isDense ? 'fas fa-th' : 'fas fa-th-large';
+});
+
+// ==========================================================
 // MODAL
-// ===================================
-const modal = $('#product-modal');
+// ==========================================================
+const modal = $('#modal');
 
 function openModal(id) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-    currentProduct = product;
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    currentProduct = p;
 
-    $('#modal-image').src = product.image;
-    $('#modal-image').alt = `Aster Luxury ${product.ref}`;
-    $('#modal-ref').textContent = `Reference ${product.ref}`;
-    $('#modal-title').textContent = `Aster Piece`;
-    $('#modal-price').textContent = product.price;
-    $('#modal-badge').textContent = getBadgeText(product);
-    $('#qty-input').value = 1;
+    $('#modal-image').src = p.image;
+    $('#modal-image').alt = `Aster ${p.ref}`;
+    $('#modal-eyebrow').textContent = `${badgeText(p)} · Ref. ${p.ref}`;
+    $('#modal-price').textContent = p.price;
+    $('#qty-value').textContent = 1;
 
-    // Update favorite button state
-    const favBtn = $('#modal-favorite');
-    const isFav = favorites.includes(product.id);
-    favBtn.innerHTML = isFav
-        ? '<i class="fas fa-heart"></i><span>Added to Favorites</span>'
-        : '<i class="far fa-heart"></i><span>Add to Favorites</span>';
+    const isFav = favorites.includes(p.id);
+    const favBtn = $('#modal-fav');
+    favBtn.classList.toggle('active', isFav);
+    favBtn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
 
-    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     currentProduct = null;
 }
 
-$('#modal-close').addEventListener('click', closeModal);
-$('.modal-backdrop').addEventListener('click', closeModal);
-
+$$('[data-close]').forEach(el => el.addEventListener('click', closeModal));
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) {
-        closeModal();
-    }
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
 });
 
 // Quantity
-$('#qty-decrease').addEventListener('click', () => {
-    const input = $('#qty-input');
-    const val = parseInt(input.value);
-    if (val > 1) input.value = val - 1;
+let qty = 1;
+$('#qty-minus').addEventListener('click', () => {
+    if (qty > 1) {
+        qty--;
+        $('#qty-value').textContent = qty;
+    }
+});
+$('#qty-plus').addEventListener('click', () => {
+    if (qty < 10) {
+        qty++;
+        $('#qty-value').textContent = qty;
+    }
 });
 
-$('#qty-increase').addEventListener('click', () => {
-    const input = $('#qty-input');
-    const val = parseInt(input.value);
-    if (val < 10) input.value = val + 1;
+// Modal order
+// Modal: Add to cart
+$('#modal-add').addEventListener('click', () => {
+    if (!currentProduct) return;
+    const q = parseInt($('#qty-value').textContent);
+    addToCart(currentProduct.id, q);
+    closeModal();
 });
 
-// Modal Order
+// Modal: Order this single piece now
 $('#modal-order').addEventListener('click', () => {
     if (!currentProduct) return;
-    const qty = $('#qty-input').value;
-    const message = `Hello Aster Luxury,\n\nI am interested in:\n\nReference: ${currentProduct.ref}\nPrice: ${currentProduct.price}\nQuantity: ${qty}\n\nPlease share more details. Thank you!`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    const q = parseInt($('#qty-value').textContent);
+    const msg = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${currentProduct.ref}\nPrice: ${currentProduct.price}\nQuantity: ${q}\n\nPlease share more details. Thank you!`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
 });
 
-// Modal Favorite
-$('#modal-favorite').addEventListener('click', () => {
+// Modal favorite
+$('#modal-fav').addEventListener('click', () => {
     if (!currentProduct) return;
-    toggleFavorite(currentProduct.id);
+    toggleFav(currentProduct.id);
     const isFav = favorites.includes(currentProduct.id);
-    $('#modal-favorite').innerHTML = isFav
-        ? '<i class="fas fa-heart"></i><span>Added to Favorites</span>'
-        : '<i class="far fa-heart"></i><span>Add to Favorites</span>';
+    const btn = $('#modal-fav');
+    btn.classList.toggle('active', isFav);
+    btn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
 });
 
-// ===================================
+// ==========================================================
 // QUICK ORDER
-// ===================================
+// ==========================================================
 function quickOrder(id) {
-    const product = products.find(p => p.id === id);
-    if (!product) return;
-    const message = `Hello Aster Luxury,\n\nI am interested in:\n\nReference: ${product.ref}\nPrice: ${product.price}\nQuantity: 1\n\nPlease share more details. Thank you!`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    const p = products.find(x => x.id === id);
+    if (!p) return;
+    const msg = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${p.ref}\nPrice: ${p.price}\nQuantity: 1\n\nPlease share more details. Thank you!`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
-// ===================================
+// ==========================================================
 // FAVORITES
-// ===================================
-function toggleFavorite(id) {
-    const idx = favorites.indexOf(id);
-    if (idx === -1) {
+// ==========================================================
+function toggleFav(id) {
+    const i = favorites.indexOf(id);
+    if (i === -1) {
         favorites.push(id);
-        showToast('Added to favorites');
+        toast('Added to favorites');
     } else {
-        favorites.splice(idx, 1);
-        showToast('Removed from favorites');
+        favorites.splice(i, 1);
+        toast('Removed from favorites');
     }
-    localStorage.setItem('aster_favorites', JSON.stringify(favorites));
+    localStorage.setItem('aster_favs', JSON.stringify(favorites));
     updateFavCount();
 
-    // Update card UI
-    document.querySelectorAll(`.product-fav[data-id="${id}"]`).forEach(btn => {
+    $$(`[data-fav="${id}"]`).forEach(btn => {
         const isFav = favorites.includes(id);
         btn.classList.toggle('active', isFav);
         btn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
@@ -389,211 +411,423 @@ function toggleFavorite(id) {
 
 function updateFavCount() {
     const badge = $('#fav-count');
-    badge.textContent = favorites.length;
-    badge.classList.toggle('show', favorites.length > 0);
+    if (favorites.length > 0) {
+        badge.textContent = favorites.length;
+        badge.classList.add('show');
+    } else {
+        badge.classList.remove('show');
+    }
 }
 
 $('#favorites-btn').addEventListener('click', () => {
     if (favorites.length === 0) {
-        showToast('No favorites yet — tap the heart on any piece');
+        toast('No favorites yet — tap the heart on any piece');
         return;
     }
-    // Filter to show only favorites
-    const grid = $('#product-grid');
+    // Show only favorites in grid
+    const list = products.filter(p => favorites.includes(p.id));
     grid.innerHTML = '';
-    const favProducts = products.filter(p => favorites.includes(p.id));
-    favProducts.forEach((product, index) => {
-        const badgeText = getBadgeText(product);
-        const badgeClass = isBadgeGold(product) ? 'gold' : '';
+    visibleCount.textContent = list.length;
+    list.forEach(p => {
+        const inCart = cart.some(c => c.id === p.id);
         const card = document.createElement('article');
-        card.className = 'product-card visible';
+        card.className = 'card in' + (inCart ? ' in-cart' : '');
+        card.dataset.id = p.id;
         card.innerHTML = `
-            <div class="product-image" data-id="${product.id}">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                <button class="product-fav active" data-id="${product.id}" aria-label="Favorite">
+            <div class="card-frame">
+                <span class="card-badge ${isFeatured(p) ? 'featured' : ''}">${badgeText(p)}</span>
+                <button class="heart-btn active" data-fav="${p.id}" aria-label="Favorite">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${product.image}" alt="Aster Luxury ${product.ref}" loading="lazy">
-                <span class="product-quick-view" data-id="${product.id}">Quick View</span>
-            </div>
-            <div class="product-info">
-                <span class="product-ref">Ref. ${product.ref}</span>
-                <h3 class="product-title" data-id="${product.id}">Aster Piece</h3>
-                <div class="product-price">${product.price}</div>
-                <div class="product-actions">
-                    <button class="details-btn" data-id="${product.id}">
-                        <i class="fas fa-eye"></i>
-                        <span>View Details</span>
-                    </button>
-                    <button class="whatsapp-btn" data-order-id="${product.id}">
-                        <i class="fab fa-whatsapp"></i>
-                        <span>Order via WhatsApp</span>
+                <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
+                <div class="card-quick">
+                    <span class="card-quick-text">${inCart ? 'Added · view detail' : 'View detail'}</span>
+                    <button class="card-quick-order" data-add="${p.id}" aria-label="${inCart ? 'In cart' : 'Add to cart'}">
+                        <i class="fas ${inCart ? 'fa-check' : 'fa-plus'}"></i>
                     </button>
                 </div>
             </div>
+            <div class="card-meta">
+                <span class="card-ref">Ref. ${p.ref}</span>
+                <span class="card-tag">${tagDisplay(p)}</span>
+            </div>
+            <h3 class="card-name"><em>Aster</em>Piece</h3>
+            <span class="card-price">${p.price}</span>
         `;
         grid.appendChild(card);
     });
-    $$('.filter-btn').forEach(b => b.classList.remove('active'));
-    $('.load-more-wrapper').classList.add('hidden');
-    attachProductHandlers();
-    document.getElementById('collections').scrollIntoView({ behavior: 'smooth' });
-    showToast(`Showing ${favorites.length} favorite${favorites.length > 1 ? 's' : ''}`);
+    $$('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+    $('#shop').scrollIntoView({ behavior: 'smooth' });
+    toast(`${list.length} favorite piece${list.length > 1 ? 's' : ''}`);
+    attachCardHandlers();
 });
 
-// ===================================
+// ==========================================================
 // SEARCH
-// ===================================
+// ==========================================================
 const searchOverlay = $('#search-overlay');
 const searchInput = $('#search-input');
 const searchResults = $('#search-results');
 
 $('#search-btn').addEventListener('click', () => {
-    searchOverlay.classList.toggle('open');
-    if (searchOverlay.classList.contains('open')) {
-        setTimeout(() => searchInput.focus(), 100);
-    }
+    searchOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput.focus(), 200);
 });
 
 $('#search-close').addEventListener('click', () => {
     searchOverlay.classList.remove('open');
+    document.body.style.overflow = '';
     searchInput.value = '';
     searchResults.innerHTML = '';
 });
 
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
+$$('.suggestion-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        searchInput.value = chip.dataset.search;
+        searchInput.dispatchEvent(new Event('input'));
+        searchInput.focus();
+    });
+});
+
+function runSearch(q) {
     searchResults.innerHTML = '';
-
-    if (!query) return;
-
+    if (!q) return;
     const matches = products.filter(p =>
-        p.ref.toLowerCase().includes(query) ||
-        p.category.toLowerCase().includes(query) ||
-        p.tags.some(t => t.includes(query)) ||
-        p.price.toLowerCase().includes(query)
+        p.ref.toLowerCase().includes(q) ||
+        p.tags.some(t => t.includes(q)) ||
+        p.price.toLowerCase().replace(/,/g, '').includes(q.replace(/,/g, ''))
     ).slice(0, 8);
 
     if (matches.length === 0) {
-        searchResults.innerHTML = `<div style="padding: 20px; text-align: center; color: var(--grey-500);">No matches found</div>`;
+        searchResults.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--muted); font-style: italic;">No matches — try a reference like AL-015</div>`;
         return;
     }
-
-    matches.forEach(product => {
-        const item = document.createElement('div');
-        item.className = 'search-result-item';
+    matches.forEach(p => {
+        const item = document.createElement('button');
+        item.className = 'search-result';
         item.innerHTML = `
-            <img src="${product.image}" alt="${product.ref}">
+            <img src="${p.image}" alt="${p.ref}">
             <div class="search-result-info">
-                <strong>Aster Piece — Ref. ${product.ref}</strong>
-                <span>${product.price}</span>
+                <strong>Aster Piece — Ref. ${p.ref}</strong>
+                <span>${p.price} · ${tagDisplay(p)}</span>
             </div>
+            <i class="fas fa-arrow-right search-result-arrow"></i>
         `;
         item.addEventListener('click', () => {
-            searchOverlay.classList.remove('open');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-            openModal(product.id);
+            $('#search-close').click();
+            setTimeout(() => openModal(p.id), 300);
         });
         searchResults.appendChild(item);
     });
+}
+
+searchInput.addEventListener('input', (e) => {
+    runSearch(e.target.value.toLowerCase().trim());
 });
 
-// ===================================
-// LOOKBOOK
-// ===================================
-const lookbookData = [
-    { image: "https://i.imgur.com/m0g8dYS.jpg", category: "New Arrivals", title: "Signature Collection" },
-    { image: "https://i.imgur.com/LTpzHsW.jpg", category: "Exclusive", title: "Evening Glamour" },
-    { image: "https://i.imgur.com/UyzPCFl.jpg", category: "Trending", title: "Modern Romance" },
-    { image: "https://i.imgur.com/Av9tP4X.jpg", category: "Featured", title: "Timeless Elegance" },
-    { image: "https://i.imgur.com/pHJk2Xe.jpg", category: "Limited", title: "Crystal Allure" },
-    { image: "https://i.imgur.com/MBZbuLs.jpg", category: "New", title: "Refined Luxury" },
-    { image: "https://i.imgur.com/Gc8080H.jpg", category: "Curated", title: "Statement Pieces" }
-];
+// ==========================================================
+// TOAST
+// ==========================================================
+let toastTimer;
+function toast(msg) {
+    const el = $('#toast');
+    $('#toast-msg').textContent = msg;
+    el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
+}
 
-function renderLookbook() {
-    const grid = $('#lookbook-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    lookbookData.forEach(item => {
-        const div = document.createElement('div');
-        div.className = 'lookbook-item';
-        div.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
-            <div class="lookbook-overlay">
-                <div class="lookbook-overlay-content">
-                    <span>${item.category}</span>
-                    <h3>${item.title}</h3>
+// ==========================================================
+// ACTIVE NAV ON SCROLL
+// ==========================================================
+const sections = ['home', 'shop', 'story', 'contact'];
+const navLinks = $$('.nav-link');
+
+let scrollTicking = false;
+window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+        requestAnimationFrame(() => {
+            let current = 'home';
+            sections.forEach(id => {
+                const sec = document.getElementById(id);
+                if (sec && window.scrollY >= sec.offsetTop - 150) current = id;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+            scrollTicking = false;
+        });
+        scrollTicking = true;
+    }
+}, { passive: true });
+
+// ==========================================================
+// SUBTLE PARALLAX ON HERO IMAGES (desktop only)
+// ==========================================================
+const heroVisual = $('.hero-visual');
+const heroImgMain = $('.hero-img-main');
+const heroImg2 = $('.hero-img-2');
+const heroImg3 = $('.hero-img-3');
+
+if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches && heroVisual) {
+    heroVisual.addEventListener('mousemove', (e) => {
+        const rect = heroVisual.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        if (heroImgMain) heroImgMain.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
+        if (heroImg2) heroImg2.style.transform = `translate3d(${x * -8}px, ${y * -8}px, 0)`;
+        if (heroImg3) heroImg3.style.transform = `translate3d(${x * 18}px, ${y * 18}px, 0)`;
+    });
+
+    heroVisual.addEventListener('mouseleave', () => {
+        if (heroImgMain) heroImgMain.style.transform = '';
+        if (heroImg2) heroImg2.style.transform = '';
+        if (heroImg3) heroImg3.style.transform = '';
+    });
+}
+
+// ==========================================================
+// FOOTER YEAR
+// ==========================================================
+$('#year').textContent = new Date().getFullYear();
+
+// ==========================================================
+// CART
+// ==========================================================
+const cartDrawer = $('#cart-drawer');
+const cartBody = $('#cart-body');
+
+function saveCart() {
+    try {
+        localStorage.setItem('aster_cart', JSON.stringify(cart));
+    } catch (e) {
+        console.warn('Could not save cart', e);
+    }
+}
+
+function addToCart(id, qty = 1) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    const existing = cart.find(c => c.id === id);
+    if (existing) {
+        existing.qty = Math.min(10, existing.qty + qty);
+        toast(`Quantity updated · Ref. ${product.ref}`);
+    } else {
+        cart.push({ id, qty });
+        toast(`Added to cart · Ref. ${product.ref}`);
+    }
+    saveCart();
+    updateCartCount();
+    renderCart();
+    refreshCardCartState(id);
+    pulseCartBtn();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    saveCart();
+    updateCartCount();
+    renderCart();
+    refreshCardCartState(id);
+}
+
+function updateCartQty(id, delta) {
+    const item = cart.find(c => c.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, Math.min(10, item.qty + delta));
+    saveCart();
+    updateCartCount();
+    renderCart();
+}
+
+function clearCart() {
+    const ids = cart.map(c => c.id);
+    cart = [];
+    saveCart();
+    updateCartCount();
+    renderCart();
+    ids.forEach(refreshCardCartState);
+    toast('Cart cleared');
+}
+
+function refreshCardCartState(id) {
+    const inCart = cart.some(c => c.id === id);
+    document.querySelectorAll(`.card[data-id="${id}"]`).forEach(card => {
+        card.classList.toggle('in-cart', inCart);
+        const btn = card.querySelector('[data-add]');
+        if (btn) {
+            btn.querySelector('i').className = 'fas ' + (inCart ? 'fa-check' : 'fa-plus');
+            btn.setAttribute('aria-label', inCart ? 'In cart' : 'Add to cart');
+            btn.setAttribute('title', inCart ? 'In cart' : 'Add to cart');
+        }
+        const text = card.querySelector('.card-quick-text');
+        if (text) text.textContent = inCart ? 'Added · view detail' : 'View detail';
+    });
+}
+
+function updateCartCount() {
+    const count = cart.reduce((sum, c) => sum + c.qty, 0);
+    const badge = $('#cart-count');
+    if (count > 0) {
+        badge.textContent = count;
+        badge.classList.add('show');
+    } else {
+        badge.classList.remove('show');
+    }
+}
+
+function pulseCartBtn() {
+    const btn = $('#cart-btn');
+    btn.querySelector('i').classList.add('in-cart-pulse');
+    setTimeout(() => btn.querySelector('i').classList.remove('in-cart-pulse'), 600);
+}
+
+function renderCart() {
+    if (cart.length === 0) {
+        cartDrawer.classList.add('empty');
+        cartBody.innerHTML = '';
+        return;
+    }
+    cartDrawer.classList.remove('empty');
+
+    cartBody.innerHTML = '';
+    let total = 0;
+    let itemCount = 0;
+
+    cart.forEach(c => {
+        const p = products.find(x => x.id === c.id);
+        if (!p) return;
+        const unit = priceToNumber(p.price);
+        const lineTotal = unit * c.qty;
+        total += lineTotal;
+        itemCount += c.qty;
+
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+            <img src="${p.image}" alt="Aster ${p.ref}">
+            <div class="cart-item-info">
+                <div class="cart-item-top">
+                    <div class="cart-item-meta">
+                        <span class="cart-item-ref">Ref. ${p.ref}</span>
+                        <h4 class="cart-item-name"><em>Aster</em>Piece</h4>
+                        <div class="cart-item-price">${p.price}</div>
+                    </div>
+                    <button class="cart-item-remove" data-cart-remove="${p.id}" aria-label="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="cart-item-bottom">
+                    <div class="cart-qty">
+                        <button data-cart-dec="${p.id}" aria-label="Decrease">−</button>
+                        <span>${c.qty}</span>
+                        <button data-cart-inc="${p.id}" aria-label="Increase">+</button>
+                    </div>
+                    <span class="cart-item-line">${formatIQD(lineTotal)}</span>
                 </div>
             </div>
         `;
-        div.addEventListener('click', () => {
-            document.getElementById('collections').scrollIntoView({ behavior: 'smooth' });
-        });
-        grid.appendChild(div);
+        cartBody.appendChild(item);
     });
+
+    $('#cart-items-count').textContent = itemCount + ' piece' + (itemCount !== 1 ? 's' : '');
+    $('#cart-total').textContent = formatIQD(total);
 }
 
-// ===================================
-// TOAST
-// ===================================
-let toastTimer;
-function showToast(message) {
-    const toast = $('#toast');
-    $('#toast-message').textContent = message;
-    toast.classList.add('show');
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => {
-        toast.classList.remove('show');
-    }, 2800);
-}
-
-// ===================================
-// SCROLL REVEAL
-// ===================================
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
-
-function observeReveals() {
-    $$('.reveal').forEach(el => revealObserver.observe(el));
-}
-
-// ===================================
-// ACTIVE NAV ON SCROLL
-// ===================================
-const sections = ['home', 'collections', 'lookbook', 'story', 'contact'];
-const navLinks = $$('.nav-link');
-
-window.addEventListener('scroll', () => {
-    let current = 'home';
-    sections.forEach(id => {
-        const section = document.getElementById(id);
-        if (section) {
-            const top = section.offsetTop - 120;
-            if (window.scrollY >= top) current = id;
-        }
-    });
-    navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-    });
+// Event delegation for cart item controls (attached once)
+cartBody.addEventListener('click', (e) => {
+    const removeBtn = e.target.closest('[data-cart-remove]');
+    if (removeBtn) {
+        e.preventDefault();
+        removeFromCart(parseInt(removeBtn.dataset.cartRemove));
+        return;
+    }
+    const incBtn = e.target.closest('[data-cart-inc]');
+    if (incBtn) {
+        e.preventDefault();
+        updateCartQty(parseInt(incBtn.dataset.cartInc), 1);
+        return;
+    }
+    const decBtn = e.target.closest('[data-cart-dec]');
+    if (decBtn) {
+        e.preventDefault();
+        updateCartQty(parseInt(decBtn.dataset.cartDec), -1);
+        return;
+    }
 });
 
-// ===================================
-// FOOTER YEAR
-// ===================================
-$('#year').textContent = new Date().getFullYear();
+function openCart() {
+    renderCart();
+    cartDrawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
 
-// ===================================
+function closeCart() {
+    cartDrawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+
+// Use event delegation on document.body so this works even if DOM changes
+document.body.addEventListener('click', (e) => {
+    // Cart icon — open drawer
+    if (e.target.closest('#cart-btn')) {
+        e.preventDefault();
+        openCart();
+        return;
+    }
+    // Anything with data-cart-close — close drawer
+    if (e.target.closest('[data-cart-close]')) {
+        e.preventDefault();
+        closeCart();
+        return;
+    }
+    // Cart clear
+    if (e.target.closest('#cart-clear')) {
+        e.preventDefault();
+        if (cart.length === 0) return;
+        if (confirm('Remove all pieces from your cart?')) clearCart();
+        return;
+    }
+    // Send order via WhatsApp
+    if (e.target.closest('#cart-order')) {
+        e.preventDefault();
+        sendCartOrder();
+        return;
+    }
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer.getAttribute('aria-hidden') === 'false') closeCart();
+});
+
+function sendCartOrder() {
+    if (cart.length === 0) return;
+
+    let total = 0;
+    let totalQty = 0;
+    const lines = cart.map((c, i) => {
+        const p = products.find(x => x.id === c.id);
+        if (!p) return '';
+        const unit = priceToNumber(p.price);
+        const lineTotal = unit * c.qty;
+        total += lineTotal;
+        totalQty += c.qty;
+        return `${i + 1}. Ref. ${p.ref}\n   Quantity: ${c.qty}\n   Price: ${p.price}\n   Subtotal: ${formatIQD(lineTotal)}`;
+    }).filter(Boolean).join('\n\n');
+
+    const msg = `Hello Aster Luxury,\n\nI would like to order the following pieces:\n\n${lines}\n\n────────────────\nTotal pieces: ${totalQty}\nEstimated total: ${formatIQD(total)}\n\nPlease confirm availability and delivery details. Thank you!`;
+
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ==========================================================
 // INIT
-// ===================================
-renderProducts();
-renderLookbook();
+// ==========================================================
+updateCounts();
+renderGrid();
 updateFavCount();
-observeReveals();
+updateCartCount();
+renderCart();

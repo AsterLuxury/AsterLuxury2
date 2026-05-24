@@ -3,748 +3,455 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <meta name="theme-color" content="#0a0908">
-    <meta name="description" content="Aster Luxury — Where every piece is a poem. Exquisite handcrafted jewelry for those who define elegance.">
-    <title>Aster Luxury — A Tale of Brilliance</title>
+    <meta name="theme-color" content="#fafaf7">
+    <meta name="description" content="Aster Luxury — Handcrafted jewelry from Iraq. Where quiet sophistication meets timeless design.">
+    <title>Aster Luxury — Handcrafted Jewelry</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Italiana&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <!-- Custom Cursor -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-follower" id="cursor-follower"></div>
+<!-- ============================================
+     PROGRESS BAR
+============================================ -->
+<div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
 
-    <!-- Loader -->
-    <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="loader-name">
-                <span style="--i:0">A</span>
-                <span style="--i:1">S</span>
-                <span style="--i:2">T</span>
-                <span style="--i:3">E</span>
-                <span style="--i:4">R</span>
-                <span class="loader-space"></span>
-                <span style="--i:5">L</span>
-                <span style="--i:6">U</span>
-                <span style="--i:7">X</span>
-                <span style="--i:8">U</span>
-                <span style="--i:9">R</span>
-                <span style="--i:10">Y</span>
-            </div>
-            <div class="loader-bar">
-                <div class="loader-fill"></div>
-            </div>
-            <div class="loader-percent" id="loader-percent">0</div>
-        </div>
-    </div>
-
-    <!-- Background SVG decorations -->
-    <svg class="svg-defs" aria-hidden="true">
-        <defs>
-            <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#a87f3a"/>
-                <stop offset="35%" stop-color="#d4af6d"/>
-                <stop offset="50%" stop-color="#f3d77a"/>
-                <stop offset="65%" stop-color="#d4af6d"/>
-                <stop offset="100%" stop-color="#a87f3a"/>
-            </linearGradient>
-            <linearGradient id="goldGradientSoft" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stop-color="transparent"/>
-                <stop offset="50%" stop-color="#d4af6d"/>
-                <stop offset="100%" stop-color="transparent"/>
-            </linearGradient>
-        </defs>
-    </svg>
-
-    <!-- Announcement Marquee -->
-    <div class="announcement">
-        <div class="announcement-track">
-            <span><i class="fas fa-truck"></i> Delivery Available Across Iraq</span>
-            <span class="diamond-sep">◆</span>
-            <span><i class="fas fa-gem"></i> 100% Authentic Handcrafted</span>
-            <span class="diamond-sep">◆</span>
-            <span><i class="fab fa-whatsapp"></i> Order Direct on WhatsApp</span>
-            <span class="diamond-sep">◆</span>
-            <span><i class="fas fa-truck"></i> Delivery Available Across Iraq</span>
-            <span class="diamond-sep">◆</span>
-            <span><i class="fas fa-gem"></i> 100% Authentic Handcrafted</span>
-            <span class="diamond-sep">◆</span>
-            <span><i class="fab fa-whatsapp"></i> Order Direct on WhatsApp</span>
-        </div>
-    </div>
-
-    <!-- Header -->
-    <header id="header">
-        <div class="header-inner">
-            <a href="#home" class="logo" data-magnetic>
-                <span class="logo-mark">
-                    <svg viewBox="0 0 40 40" fill="none">
-                        <path d="M20 4 L34 16 L20 36 L6 16 Z" stroke="url(#goldGradient)" stroke-width="1.5" fill="none"/>
-                        <path d="M6 16 L34 16" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                        <path d="M20 4 L14 16 L20 36" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                        <path d="M20 4 L26 16 L20 36" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                    </svg>
-                </span>
-                <span class="logo-text">
-                    <span class="logo-main">ASTER</span>
-                    <span class="logo-sub">— LUXURY —</span>
-                </span>
-            </a>
-
-            <nav class="nav-desktop">
-                <ul>
-                    <li><a href="#home" class="nav-link" data-text="Home">Home</a></li>
-                    <li><a href="#collections" class="nav-link" data-text="Atelier">Atelier</a></li>
-                    <li><a href="#editorial" class="nav-link" data-text="Editorial">Editorial</a></li>
-                    <li><a href="#story" class="nav-link" data-text="Maison">Maison</a></li>
-                    <li><a href="#contact" class="nav-link" data-text="Contact">Contact</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <button class="icon-btn" id="search-btn" aria-label="Search" data-magnetic>
-                    <i class="fas fa-search"></i>
-                </button>
-                <button class="icon-btn favorites-btn" id="favorites-btn" aria-label="Favorites" data-magnetic>
-                    <i class="far fa-heart"></i>
-                    <span class="badge" id="fav-count">0</span>
-                </button>
-                <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener" class="icon-btn" aria-label="Instagram" data-magnetic>
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
-                    <span></span>
-                    <span></span>
-                </button>
-            </div>
-        </div>
-
-        <!-- Search Overlay -->
-        <div class="search-overlay" id="search-overlay">
-            <div class="container">
-                <div class="search-wrapper">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="search-input" placeholder="Search by reference, price, or category...">
-                    <button class="search-close" id="search-close" aria-label="Close">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="search-results" id="search-results"></div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobile-menu">
-        <div class="mobile-menu-bg"></div>
-        <div class="mobile-menu-content">
-            <nav>
-                <ul>
-                    <li><a href="#home"><span class="num">01</span><span class="lbl">Home</span></a></li>
-                    <li><a href="#collections"><span class="num">02</span><span class="lbl">Atelier</span></a></li>
-                    <li><a href="#editorial"><span class="num">03</span><span class="lbl">Editorial</span></a></li>
-                    <li><a href="#story"><span class="num">04</span><span class="lbl">Maison</span></a></li>
-                    <li><a href="#contact"><span class="num">05</span><span class="lbl">Contact</span></a></li>
-                </ul>
-            </nav>
-            <div class="mobile-menu-footer">
-                <p class="mm-tagline">Where every piece tells a story</p>
-                <div class="mm-links">
-                    <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener">
-                        <i class="fab fa-instagram"></i> @aster_luxury2
-                    </a>
-                    <a href="https://wa.me/9647503307830" target="_blank" rel="noopener">
-                        <i class="fab fa-whatsapp"></i> +964 750 330 7830
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- HERO: Editorial split-screen -->
-    <section class="hero" id="home">
-        <div class="hero-grid-bg"></div>
-        <div class="hero-noise"></div>
-
-        <!-- Floating decorative elements -->
-        <div class="hero-deco hero-deco-1">
-            <svg viewBox="0 0 200 200">
-                <circle cx="100" cy="100" r="98" stroke="url(#goldGradient)" stroke-width="1" fill="none" stroke-dasharray="2 4"/>
+<!-- ============================================
+     HEADER
+============================================ -->
+<header class="header" id="header">
+    <a href="#" class="brand" aria-label="Aster Luxury">
+        <span class="brand-mark">
+            <svg viewBox="0 0 32 32" fill="none">
+                <path d="M16 3 L28 13 L16 29 L4 13 Z" stroke="currentColor" stroke-width="1" fill="none"/>
+                <path d="M4 13 L28 13" stroke="currentColor" stroke-width="1"/>
+                <path d="M16 3 L11 13 L16 29" stroke="currentColor" stroke-width="1"/>
+                <path d="M16 3 L21 13 L16 29" stroke="currentColor" stroke-width="1"/>
             </svg>
-        </div>
-        <div class="hero-deco hero-deco-2">
-            <svg viewBox="0 0 100 100">
-                <path d="M50 5 L95 50 L50 95 L5 50 Z" stroke="url(#goldGradient)" stroke-width="1" fill="none"/>
-            </svg>
-        </div>
-
-        <div class="hero-grid">
-            <!-- Left side: Editorial text -->
-            <div class="hero-left">
-                <div class="hero-tag">
-                    <span class="hero-tag-num">N°1</span>
-                    <span class="hero-tag-line"></span>
-                    <span class="hero-tag-text">Maison Of Brilliance</span>
-                </div>
-
-                <h1 class="hero-title">
-                    <span class="hero-line" data-text="Where">
-                        <span class="hero-line-inner">Where</span>
-                    </span>
-                    <span class="hero-line italic" data-text="Light">
-                        <span class="hero-line-inner">Light</span>
-                    </span>
-                    <span class="hero-line" data-text="Becomes">
-                        <span class="hero-line-inner">Becomes</span>
-                    </span>
-                    <span class="hero-line italic gold" data-text="Poetry">
-                        <span class="hero-line-inner">Poetry.</span>
-                    </span>
-                </h1>
-
-                <div class="hero-meta">
-                    <p class="hero-meta-text">
-                        Each piece is a testament to artistry — meticulously crafted for the soul that seeks more than ornament. We craft heirlooms.
-                    </p>
-                    <div class="hero-cta-group">
-                        <a href="#collections" class="btn btn-primary" data-magnetic>
-                            <span class="btn-text">Explore The Atelier</span>
-                            <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
-                        </a>
-                        <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="btn-text-link" data-magnetic>
-                            <i class="fab fa-whatsapp"></i>
-                            <span>Speak with us</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Right side: Visual showcase -->
-            <div class="hero-right">
-                <div class="hero-frame">
-                    <div class="hero-frame-corners">
-                        <span class="corner corner-tl"></span>
-                        <span class="corner corner-tr"></span>
-                        <span class="corner corner-bl"></span>
-                        <span class="corner corner-br"></span>
-                    </div>
-                    <div class="hero-images">
-                        <div class="hero-img hero-img-1">
-                            <img src="https://i.imgur.com/m0g8dYS.jpg" alt="" loading="eager">
-                        </div>
-                        <div class="hero-img hero-img-2">
-                            <img src="https://i.imgur.com/LTpzHsW.jpg" alt="" loading="eager">
-                        </div>
-                        <div class="hero-img hero-img-3">
-                            <img src="https://i.imgur.com/Av9tP4X.jpg" alt="" loading="eager">
-                        </div>
-                    </div>
-                    <div class="hero-frame-meta">
-                        <span>EST. AL-001</span>
-                        <span>Handcrafted in Iraq</span>
-                    </div>
-                </div>
-
-                <!-- Floating badge -->
-                <div class="hero-badge">
-                    <svg class="hero-badge-circle" viewBox="0 0 100 100">
-                        <defs>
-                            <path id="circlePath" d="M 50,50 m -36,0 a 36,36 0 1,1 72,0 a 36,36 0 1,1 -72,0"/>
-                        </defs>
-                        <text>
-                            <textPath href="#circlePath">ASTER LUXURY ◆ ASTER LUXURY ◆ ASTER LUXURY ◆ </textPath>
-                        </text>
-                    </svg>
-                    <i class="fas fa-gem hero-badge-icon"></i>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bottom infinite ticker -->
-        <div class="hero-ticker">
-            <div class="hero-ticker-row">
-                <span>Scroll to explore</span>
-                <i class="fas fa-arrow-down"></i>
-            </div>
-            <div class="hero-ticker-row hero-stats">
-                <span><strong>55+</strong> Pieces</span>
-                <span class="dot">●</span>
-                <span><strong>100%</strong> Handcrafted</span>
-                <span class="dot">●</span>
-                <span><strong>Iraq</strong> Wide Delivery</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Editorial Quote Section -->
-    <section class="quote-section">
-        <div class="container">
-            <div class="quote-content">
-                <span class="quote-mark">"</span>
-                <p class="quote-text">
-                    <span class="quote-word">A</span>
-                    <span class="quote-word">jewel</span>
-                    <span class="quote-word">is</span>
-                    <span class="quote-word">never</span>
-                    <span class="quote-word">just</span>
-                    <span class="quote-word">a</span>
-                    <span class="quote-word">jewel —</span>
-                    <span class="quote-word italic">it</span>
-                    <span class="quote-word italic">is</span>
-                    <span class="quote-word italic">a</span>
-                    <span class="quote-word italic">memory,</span>
-                    <span class="quote-word italic">a</span>
-                    <span class="quote-word italic">moment,</span>
-                    <span class="quote-word italic">a</span>
-                    <span class="quote-word italic">soul</span>
-                    <span class="quote-word italic">made</span>
-                    <span class="quote-word italic">visible.</span>
-                </p>
-                <div class="quote-line"></div>
-                <span class="quote-author">— THE ASTER PHILOSOPHY</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- Bento Featured Showcase -->
-    <section class="featured-bento">
-        <div class="container">
-            <div class="section-intro reveal">
-                <div class="section-intro-left">
-                    <span class="section-num">02</span>
-                    <span class="section-eyebrow">Curated Selection</span>
-                </div>
-                <h2 class="section-title-massive">
-                    <span class="line">The</span>
-                    <span class="line italic gold">Signature</span>
-                    <span class="line">Edit.</span>
-                </h2>
-                <p class="section-intro-text">
-                    A handpicked symphony of our most coveted pieces — each one a celebration of artistry without compromise.
-                </p>
-            </div>
-
-            <div class="bento-grid" id="bento-grid"></div>
-        </div>
-    </section>
-
-    <!-- Horizontal Collection Section -->
-    <section class="collections" id="collections">
-        <div class="collections-header reveal">
-            <div class="container">
-                <div class="section-intro">
-                    <div class="section-intro-left">
-                        <span class="section-num">03</span>
-                        <span class="section-eyebrow">The Complete Atelier</span>
-                    </div>
-                    <h2 class="section-title-massive">
-                        <span class="line">Every</span>
-                        <span class="line italic gold">Piece,</span>
-                        <span class="line">A Story.</span>
-                    </h2>
-                </div>
-
-                <div class="filter-wrapper">
-                    <div class="filter-buttons" id="filter-buttons">
-                        <button class="filter-btn active" data-filter="all">
-                            <span class="filter-text">All Pieces</span>
-                            <span class="filter-count" id="count-all">55</span>
-                        </button>
-                        <button class="filter-btn" data-filter="new">
-                            <span class="filter-text">New Arrivals</span>
-                            <span class="filter-count" id="count-new"></span>
-                        </button>
-                        <button class="filter-btn" data-filter="trending">
-                            <span class="filter-text">Trending</span>
-                            <span class="filter-count" id="count-trending"></span>
-                        </button>
-                        <button class="filter-btn" data-filter="exclusive">
-                            <span class="filter-text">Exclusive</span>
-                            <span class="filter-count" id="count-exclusive"></span>
-                        </button>
-                        <button class="filter-btn" data-filter="limited">
-                            <span class="filter-text">Limited</span>
-                            <span class="filter-count" id="count-limited"></span>
-                        </button>
-                        <button class="filter-btn" data-filter="namaya">
-                            <span class="filter-text">Namaya</span>
-                            <span class="filter-count" id="count-namaya"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="product-grid" id="product-grid"></div>
-
-            <div class="load-more-wrapper">
-                <button class="btn btn-outline-large" id="load-more" data-magnetic>
-                    <span>Reveal More Pieces</span>
-                    <span class="btn-circle"><i class="fas fa-plus"></i></span>
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Maison Story Section -->
-    <section class="story" id="story">
-        <div class="story-bg"></div>
-        <div class="container">
-            <div class="story-grid">
-                <div class="story-left reveal">
-                    <span class="section-num light">04</span>
-                    <span class="section-eyebrow light">The Maison</span>
-                    <h2 class="story-title">
-                        Crafted not for the<br>
-                        <span class="italic gold">many,</span> but for<br>
-                        the <span class="italic gold">remarkable.</span>
-                    </h2>
-                </div>
-                <div class="story-right reveal">
-                    <p class="story-text">
-                        At Aster Luxury, we believe jewelry should do more than adorn — it should awaken. Each piece in our collection is born from a quiet obsession with detail, an unwavering commitment to authenticity, and a deep respect for the women who wear them.
-                    </p>
-                    <p class="story-text">
-                        From the first sketch to the final polish, our artisans work with patience and precision. The result is not mass production — it is a curated atelier of treasures, ready to become part of your story.
-                    </p>
-
-                    <div class="story-features">
-                        <div class="story-feature">
-                            <div class="story-feature-num">01</div>
-                            <div class="story-feature-text">
-                                <h3>Artisan Crafted</h3>
-                                <p>Every piece shaped by hand, never by machine.</p>
-                            </div>
-                        </div>
-                        <div class="story-feature">
-                            <div class="story-feature-num">02</div>
-                            <div class="story-feature-text">
-                                <h3>Premium Materials</h3>
-                                <p>Only the finest sourced for lasting elegance.</p>
-                            </div>
-                        </div>
-                        <div class="story-feature">
-                            <div class="story-feature-num">03</div>
-                            <div class="story-feature-text">
-                                <h3>Iraq-Wide Delivery</h3>
-                                <p>Your treasure arrives, wherever you are.</p>
-                            </div>
-                        </div>
-                        <div class="story-feature">
-                            <div class="story-feature-num">04</div>
-                            <div class="story-feature-text">
-                                <h3>Authenticity Promise</h3>
-                                <p>Every piece, 100% genuine — guaranteed.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Editorial Lookbook -->
-    <section class="editorial" id="editorial">
-        <div class="container">
-            <div class="section-intro reveal">
-                <div class="section-intro-left">
-                    <span class="section-num">05</span>
-                    <span class="section-eyebrow">Editorial</span>
-                </div>
-                <h2 class="section-title-massive">
-                    <span class="line">Visual</span>
-                    <span class="line italic gold">Stories.</span>
-                </h2>
-                <p class="section-intro-text">
-                    Each frame, an invitation. Each piece, a whisper of what could be.
-                </p>
-            </div>
-        </div>
-
-        <div class="editorial-marquee">
-            <div class="editorial-track">
-                <span>Aster Luxury</span>
-                <span class="sep">◆</span>
-                <span class="italic">Editorial</span>
-                <span class="sep">◆</span>
-                <span>Volume I</span>
-                <span class="sep">◆</span>
-                <span class="italic">Brilliance</span>
-                <span class="sep">◆</span>
-                <span>Aster Luxury</span>
-                <span class="sep">◆</span>
-                <span class="italic">Editorial</span>
-                <span class="sep">◆</span>
-                <span>Volume I</span>
-                <span class="sep">◆</span>
-                <span class="italic">Brilliance</span>
-                <span class="sep">◆</span>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="editorial-grid" id="editorial-grid"></div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="testimonials">
-        <div class="container">
-            <div class="section-intro center reveal">
-                <span class="section-num">06</span>
-                <span class="section-eyebrow">Words of Love</span>
-                <h2 class="section-title-massive center">
-                    <span class="line">From those who</span>
-                    <span class="line italic gold">cherish.</span>
-                </h2>
-            </div>
-
-            <div class="testimonial-track" id="testimonial-track">
-                <div class="testimonial">
-                    <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-                    <p class="testimonial-text">"Absolutely breathtaking. The piece I received exceeded every expectation — a true work of art that I'll cherish forever."</p>
-                    <div class="testimonial-meta">
-                        <span class="testimonial-name">Layla H.</span>
-                        <span class="testimonial-loc">Erbil</span>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-                    <p class="testimonial-text">"The craftsmanship is simply unmatched. Aster has become my go-to for moments that matter most."</p>
-                    <div class="testimonial-meta">
-                        <span class="testimonial-name">Sara M.</span>
-                        <span class="testimonial-loc">Baghdad</span>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-                    <p class="testimonial-text">"From the order to the unboxing, every detail felt luxurious. This is true elegance."</p>
-                    <div class="testimonial-meta">
-                        <span class="testimonial-name">Noor A.</span>
-                        <span class="testimonial-loc">Sulaymaniyah</span>
-                    </div>
-                </div>
-                <div class="testimonial">
-                    <div class="testimonial-stars">★ ★ ★ ★ ★</div>
-                    <p class="testimonial-text">"I've never received so many compliments on a single piece. Aster Luxury is now part of my signature style."</p>
-                    <div class="testimonial-meta">
-                        <span class="testimonial-name">Dunya K.</span>
-                        <span class="testimonial-loc">Duhok</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="testimonial-dots" id="testimonial-dots"></div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta">
-        <div class="cta-bg"></div>
-        <div class="cta-deco">
-            <svg viewBox="0 0 600 600">
-                <circle cx="300" cy="300" r="280" stroke="url(#goldGradient)" stroke-width="1" fill="none" stroke-dasharray="3 6"/>
-                <circle cx="300" cy="300" r="200" stroke="url(#goldGradient)" stroke-width="0.5" fill="none"/>
-                <circle cx="300" cy="300" r="120" stroke="url(#goldGradient)" stroke-width="0.3" fill="none"/>
-            </svg>
-        </div>
-        <div class="container">
-            <div class="cta-content reveal">
-                <span class="section-eyebrow light">Personal Atelier</span>
-                <h2 class="cta-title">
-                    Find your <span class="italic gold">forever</span> piece.
-                </h2>
-                <p class="cta-text">
-                    Reach out for personalized recommendations, exclusive previews, and the kind of attention every treasured customer deserves.
-                </p>
-                <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="btn btn-primary btn-lg" data-magnetic>
-                    <span class="btn-text">
-                        <i class="fab fa-whatsapp"></i>
-                        Begin Your Journey
-                    </span>
-                    <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="contact">
-        <div class="footer-massive">
-            <span class="footer-massive-text">ASTER LUXURY</span>
-        </div>
-
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <a href="#home" class="logo">
-                        <span class="logo-mark">
-                            <svg viewBox="0 0 40 40" fill="none">
-                                <path d="M20 4 L34 16 L20 36 L6 16 Z" stroke="url(#goldGradient)" stroke-width="1.5" fill="none"/>
-                                <path d="M6 16 L34 16" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                                <path d="M20 4 L14 16 L20 36" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                                <path d="M20 4 L26 16 L20 36" stroke="url(#goldGradient)" stroke-width="1.5"/>
-                            </svg>
-                        </span>
-                        <span class="logo-text">
-                            <span class="logo-main">ASTER</span>
-                            <span class="logo-sub">— LUXURY —</span>
-                        </span>
-                    </a>
-                    <p class="footer-tagline-long">Where every jewel is born from devotion, and every wearer becomes part of the story.</p>
-                    <div class="social-links">
-                        <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener" aria-label="Instagram" data-magnetic>
-                            <i class="fab fa-instagram"></i>
-                            <span>Instagram</span>
-                        </a>
-                        <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" aria-label="WhatsApp" data-magnetic>
-                            <i class="fab fa-whatsapp"></i>
-                            <span>WhatsApp</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Navigate</h3>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#collections">Atelier</a></li>
-                        <li><a href="#editorial">Editorial</a></li>
-                        <li><a href="#story">Maison</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h3>Discover</h3>
-                    <ul>
-                        <li><a href="#" data-quick-filter="new">New Arrivals</a></li>
-                        <li><a href="#" data-quick-filter="trending">Trending</a></li>
-                        <li><a href="#" data-quick-filter="exclusive">Exclusive</a></li>
-                        <li><a href="#" data-quick-filter="limited">Limited</a></li>
-                        <li><a href="#" data-quick-filter="namaya">Namaya</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col footer-contact">
-                    <h3>Reach Us</h3>
-                    <ul>
-                        <li>
-                            <span class="contact-label">WhatsApp</span>
-                            <a href="https://wa.me/9647503307830" target="_blank" rel="noopener">+964 750 330 7830</a>
-                        </li>
-                        <li>
-                            <span class="contact-label">Instagram</span>
-                            <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener">@aster_luxury2</a>
-                        </li>
-                        <li>
-                            <span class="contact-label">Email</span>
-                            <a href="mailto:Baravan556@gmail.com">Baravan556@gmail.com</a>
-                        </li>
-                        <li>
-                            <span class="contact-label">Service</span>
-                            <span>Delivery available across Iraq</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; <span id="year"></span> Aster Luxury. All Rights Reserved.</p>
-                <p class="footer-craft">Crafted with <i class="fas fa-gem"></i> in Iraq</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- Floating WhatsApp -->
-    <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp" data-magnetic>
-        <i class="fab fa-whatsapp"></i>
-        <span class="float-wa-pulse"></span>
-        <span class="float-wa-pulse delay"></span>
+        </span>
+        <span class="brand-name">Aster<em>Luxury</em></span>
     </a>
 
-    <!-- Product Modal -->
-    <div class="modal" id="product-modal">
-        <div class="modal-backdrop"></div>
-        <div class="modal-container">
-            <button class="modal-close" id="modal-close" aria-label="Close" data-magnetic>
-                <i class="fas fa-times"></i>
-            </button>
-            <div class="modal-body">
-                <div class="modal-image-wrapper">
-                    <span class="modal-badge" id="modal-badge"></span>
-                    <img id="modal-image" src="" alt="">
-                    <div class="modal-image-deco"></div>
-                </div>
-                <div class="modal-info">
-                    <span class="modal-ref" id="modal-ref"></span>
-                    <h2 class="modal-title">
-                        <span class="italic">Aster</span> Piece
-                    </h2>
-                    <div class="modal-price-row">
-                        <div class="modal-price" id="modal-price"></div>
-                        <button class="modal-fav" id="modal-favorite" aria-label="Favorite">
-                            <i class="far fa-heart"></i>
-                        </button>
+    <nav class="nav-desktop">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#shop" class="nav-link">Shop</a>
+        <a href="#story" class="nav-link">Story</a>
+        <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+
+    <div class="header-actions">
+        <button class="icon-btn" id="search-btn" aria-label="Search">
+            <i class="fas fa-search"></i>
+        </button>
+        <button class="icon-btn" id="favorites-btn" aria-label="Favorites">
+            <i class="far fa-heart"></i>
+            <span class="dot-badge" id="fav-count"></span>
+        </button>
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
+            <span></span><span></span>
+        </button>
+    </div>
+</header>
+
+<!-- ============================================
+     SEARCH OVERLAY
+============================================ -->
+<div class="search-overlay" id="search-overlay">
+    <button class="search-close" id="search-close" aria-label="Close"><i class="fas fa-times"></i></button>
+    <div class="search-inner">
+        <label class="search-label">Search</label>
+        <div class="search-field">
+            <input type="text" id="search-input" placeholder="Try 'AL-015', 'exclusive', or '10,000'" autocomplete="off">
+            <span class="search-cursor"></span>
+        </div>
+        <div class="search-suggestions">
+            <span class="suggestion-label">Try:</span>
+            <button class="suggestion-chip" data-search="exclusive">Exclusive</button>
+            <button class="suggestion-chip" data-search="new">New</button>
+            <button class="suggestion-chip" data-search="namaya">Namaya</button>
+            <button class="suggestion-chip" data-search="limited">Limited</button>
+        </div>
+        <div class="search-results" id="search-results"></div>
+    </div>
+</div>
+
+<!-- ============================================
+     MOBILE MENU
+============================================ -->
+<div class="mobile-menu" id="mobile-menu">
+    <nav>
+        <a href="#home"><span class="num">01</span><span>Home</span><i class="fas fa-arrow-right"></i></a>
+        <a href="#shop"><span class="num">02</span><span>Shop</span><i class="fas fa-arrow-right"></i></a>
+        <a href="#story"><span class="num">03</span><span>Story</span><i class="fas fa-arrow-right"></i></a>
+        <a href="#contact"><span class="num">04</span><span>Contact</span><i class="fas fa-arrow-right"></i></a>
+    </nav>
+    <div class="mobile-menu-foot">
+        <a href="https://wa.me/9647503307830" target="_blank" rel="noopener">
+            <i class="fab fa-whatsapp"></i> +964 750 330 7830
+        </a>
+        <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener">
+            <i class="fab fa-instagram"></i> @aster_luxury2
+        </a>
+    </div>
+</div>
+
+<!-- ============================================
+     HERO
+============================================ -->
+<section class="hero" id="home">
+    <div class="hero-grain"></div>
+
+    <div class="hero-content">
+        <span class="hero-tag">
+            <span class="hero-tag-dot"></span>
+            Handcrafted in Iraq · Since 2023
+        </span>
+
+        <h1 class="hero-headline">
+            <span class="hero-word" data-word="Quiet">Quiet</span>
+            <span class="hero-word" data-word="luxury,"><em>luxury,</em></span>
+            <span class="hero-word" data-word="loud">loud</span>
+            <span class="hero-word" data-word="impressions."><em>impressions.</em></span>
+        </h1>
+
+        <p class="hero-lede">
+            A curated atelier of jewelry pieces — designed with intention, made by hand, worn with quiet confidence.
+        </p>
+
+        <div class="hero-actions">
+            <a href="#shop" class="cta">
+                <span>Explore the collection</span>
+                <span class="cta-arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+            <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="cta-link">
+                <i class="fab fa-whatsapp"></i> Chat with us
+            </a>
+        </div>
+    </div>
+
+    <div class="hero-visual">
+        <div class="hero-image-stack">
+            <div class="hero-img hero-img-main">
+                <img src="https://i.imgur.com/m0g8dYS.jpg" alt="" loading="eager">
+                <span class="hero-img-tag">Ref. AL-015</span>
+            </div>
+            <div class="hero-img hero-img-2">
+                <img src="https://i.imgur.com/LTpzHsW.jpg" alt="" loading="eager">
+            </div>
+            <div class="hero-img hero-img-3">
+                <img src="https://i.imgur.com/UyzPCFl.jpg" alt="" loading="eager">
+            </div>
+        </div>
+
+        <div class="hero-circle">
+            <svg viewBox="0 0 100 100" aria-hidden="true">
+                <defs>
+                    <path id="circle-text-path" d="M 50,50 m -38,0 a 38,38 0 1,1 76,0 a 38,38 0 1,1 -76,0"/>
+                </defs>
+                <text>
+                    <textPath href="#circle-text-path">ASTER LUXURY · EST. 2023 · ASTER LUXURY · EST. 2023 ·</textPath>
+                </text>
+            </svg>
+            <span class="hero-circle-mark">◆</span>
+        </div>
+    </div>
+
+    <div class="hero-scroll">
+        <span>Scroll</span>
+        <span class="hero-scroll-line"></span>
+    </div>
+
+    <div class="hero-meta">
+        <div><span class="meta-num">55</span><span class="meta-lbl">Pieces</span></div>
+        <div><span class="meta-num">100%</span><span class="meta-lbl">Handcrafted</span></div>
+        <div><span class="meta-num">Iraq</span><span class="meta-lbl">Wide Delivery</span></div>
+    </div>
+</section>
+
+<!-- ============================================
+     MARQUEE
+============================================ -->
+<div class="ribbon">
+    <div class="ribbon-track">
+        <span>Delivery Available Across Iraq</span>
+        <span class="bullet">◆</span>
+        <span><em>Authentic</em> Handcrafted Pieces</span>
+        <span class="bullet">◆</span>
+        <span>Order Direct on WhatsApp</span>
+        <span class="bullet">◆</span>
+        <span>Delivery Available Across Iraq</span>
+        <span class="bullet">◆</span>
+        <span><em>Authentic</em> Handcrafted Pieces</span>
+        <span class="bullet">◆</span>
+        <span>Order Direct on WhatsApp</span>
+        <span class="bullet">◆</span>
+    </div>
+</div>
+
+<!-- ============================================
+     ABOUT
+============================================ -->
+<section class="about" id="story">
+    <div class="container">
+        <div class="about-grid">
+            <div class="about-left">
+                <span class="section-label">
+                    <span class="label-dot"></span>
+                    The Maison
+                </span>
+                <h2 class="about-title">
+                    Made by hand,<br>
+                    <em>made to last.</em>
+                </h2>
+            </div>
+            <div class="about-right">
+                <p class="about-lede">
+                    Aster Luxury is a small Iraqi atelier obsessed with one idea: that beautiful jewelry should feel as personal as it looks. Every piece in our collection is selected with care, finished by hand, and shipped directly to those who appreciate the difference.
+                </p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <span class="feat-num">01</span>
+                        <h3>Curated Selection</h3>
+                        <p>A small collection, chosen for craft and character.</p>
                     </div>
-
-                    <div class="modal-divider"></div>
-
-                    <div class="modal-features">
-                        <div class="modal-feature">
-                            <i class="fas fa-gem"></i>
-                            <div>
-                                <strong>Premium Materials</strong>
-                                <span>Sourced for excellence</span>
-                            </div>
-                        </div>
-                        <div class="modal-feature">
-                            <i class="fas fa-truck"></i>
-                            <div>
-                                <strong>Delivery Across Iraq</strong>
-                                <span>Wherever you are</span>
-                            </div>
-                        </div>
-                        <div class="modal-feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <div>
-                                <strong>100% Authentic</strong>
-                                <span>Every piece guaranteed</span>
-                            </div>
-                        </div>
+                    <div class="about-feature">
+                        <span class="feat-num">02</span>
+                        <h3>Direct from Atelier</h3>
+                        <p>No middlemen. Order direct, talk direct, save direct.</p>
                     </div>
-
-                    <div class="quantity-row">
-                        <label>Quantity</label>
-                        <div class="quantity-selector">
-                            <button class="qty-btn" id="qty-decrease" aria-label="Decrease">−</button>
-                            <input type="number" id="qty-input" value="1" min="1" max="10" readonly>
-                            <button class="qty-btn" id="qty-increase" aria-label="Increase">+</button>
-                        </div>
+                    <div class="about-feature">
+                        <span class="feat-num">03</span>
+                        <h3>Iraq-Wide Delivery</h3>
+                        <p>Delivery available across all Iraqi governorates.</p>
                     </div>
-
-                    <button class="btn btn-primary btn-full" id="modal-order" data-magnetic>
-                        <span class="btn-text">
-                            <i class="fab fa-whatsapp"></i>
-                            Order via WhatsApp
-                        </span>
-                        <span class="btn-arrow"><i class="fas fa-arrow-right"></i></span>
-                    </button>
+                    <div class="about-feature">
+                        <span class="feat-num">04</span>
+                        <h3>Personal Service</h3>
+                        <p>Every customer matters. Reach us directly on WhatsApp.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</section>
 
-    <!-- Toast -->
-    <div class="toast" id="toast">
-        <i class="fas fa-check-circle"></i>
-        <span id="toast-message"></span>
+<!-- ============================================
+     SHOP — All products visible
+============================================ -->
+<section class="shop" id="shop">
+    <div class="shop-header">
+        <div class="container">
+            <div class="shop-header-grid">
+                <div>
+                    <span class="section-label">
+                        <span class="label-dot"></span>
+                        The Collection
+                    </span>
+                    <h2 class="shop-title">
+                        Every piece,<br>
+                        <em>a quiet statement.</em>
+                    </h2>
+                </div>
+                <p class="shop-lede">
+                    <span id="visible-count">55</span> pieces, each with its own reference number. Tap any piece to see it up close, or order directly via WhatsApp.
+                </p>
+            </div>
+
+            <div class="filter-rail" id="filter-rail">
+                <button class="chip active" data-filter="all">
+                    <span>All</span>
+                    <span class="chip-num" id="count-all">55</span>
+                </button>
+                <button class="chip" data-filter="new">
+                    <span>New</span>
+                    <span class="chip-num" id="count-new"></span>
+                </button>
+                <button class="chip" data-filter="trending">
+                    <span>Trending</span>
+                    <span class="chip-num" id="count-trending"></span>
+                </button>
+                <button class="chip" data-filter="exclusive">
+                    <span>Exclusive</span>
+                    <span class="chip-num" id="count-exclusive"></span>
+                </button>
+                <button class="chip" data-filter="limited">
+                    <span>Limited</span>
+                    <span class="chip-num" id="count-limited"></span>
+                </button>
+                <button class="chip" data-filter="namaya">
+                    <span>Namaya</span>
+                    <span class="chip-num" id="count-namaya"></span>
+                </button>
+                <div class="filter-divider"></div>
+                <button class="chip view-toggle" id="view-toggle" aria-label="Toggle view">
+                    <i class="fas fa-th-large"></i>
+                </button>
+            </div>
+        </div>
     </div>
 
-    <script src="script.js"></script>
+    <div class="container">
+        <div class="grid" id="grid"></div>
+
+        <div class="empty" id="empty" hidden>
+            <span class="empty-mark">◆</span>
+            <h3>No pieces in this filter yet</h3>
+            <button class="cta-link" data-filter="all">View all pieces <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     CALLOUT
+============================================ -->
+<section class="callout">
+    <div class="container">
+        <div class="callout-inner">
+            <span class="section-label light">
+                <span class="label-dot"></span>
+                Personal Service
+            </span>
+            <h2 class="callout-title">
+                Looking for something <em>specific?</em>
+            </h2>
+            <p class="callout-text">
+                Our team is one message away. Share what you're looking for and we'll help you find your piece.
+            </p>
+            <a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="cta cta-light">
+                <span><i class="fab fa-whatsapp"></i> Open WhatsApp</span>
+                <span class="cta-arrow"><i class="fas fa-arrow-right"></i></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer id="contact">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#home" class="brand">
+                    <span class="brand-mark">
+                        <svg viewBox="0 0 32 32" fill="none">
+                            <path d="M16 3 L28 13 L16 29 L4 13 Z" stroke="currentColor" stroke-width="1" fill="none"/>
+                            <path d="M4 13 L28 13" stroke="currentColor" stroke-width="1"/>
+                            <path d="M16 3 L11 13 L16 29" stroke="currentColor" stroke-width="1"/>
+                            <path d="M16 3 L21 13 L16 29" stroke="currentColor" stroke-width="1"/>
+                        </svg>
+                    </span>
+                    <span class="brand-name">Aster<em>Luxury</em></span>
+                </a>
+                <p class="footer-tag">Handcrafted jewelry, made in Iraq with quiet devotion.</p>
+            </div>
+
+            <div class="footer-col">
+                <h4>Navigate</h4>
+                <a href="#home">Home</a>
+                <a href="#shop">Shop</a>
+                <a href="#story">Story</a>
+                <a href="#contact">Contact</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Discover</h4>
+                <a href="#" data-quick-filter="new">New Arrivals</a>
+                <a href="#" data-quick-filter="trending">Trending</a>
+                <a href="#" data-quick-filter="exclusive">Exclusive</a>
+                <a href="#" data-quick-filter="limited">Limited</a>
+                <a href="#" data-quick-filter="namaya">Namaya</a>
+            </div>
+
+            <div class="footer-col">
+                <h4>Reach Us</h4>
+                <a href="https://wa.me/9647503307830" target="_blank" rel="noopener">
+                    <i class="fab fa-whatsapp"></i> +964 750 330 7830
+                </a>
+                <a href="https://www.instagram.com/aster_luxury2" target="_blank" rel="noopener">
+                    <i class="fab fa-instagram"></i> @aster_luxury2
+                </a>
+                <a href="mailto:Baravan556@gmail.com">
+                    <i class="far fa-envelope"></i> Baravan556@gmail.com
+                </a>
+                <span class="footer-note">Delivery available across Iraq</span>
+            </div>
+        </div>
+
+        <div class="footer-massive" aria-hidden="true">aster<em>luxury</em></div>
+
+        <div class="footer-bottom">
+            <span>&copy; <span id="year"></span> Aster Luxury</span>
+            <span>Made with <i class="fas fa-gem"></i> in Iraq</span>
+        </div>
+    </div>
+</footer>
+
+<!-- ============================================
+     FLOATING WHATSAPP
+============================================ -->
+<a href="https://wa.me/9647503307830" target="_blank" rel="noopener" class="float-wa" aria-label="WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+</a>
+
+<!-- ============================================
+     PRODUCT MODAL
+============================================ -->
+<div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-bg" data-close></div>
+    <div class="modal-shell">
+        <button class="modal-close" data-close aria-label="Close">
+            <i class="fas fa-times"></i>
+        </button>
+        <div class="modal-grid">
+            <div class="modal-img">
+                <img id="modal-image" src="" alt="">
+            </div>
+            <div class="modal-info">
+                <span class="modal-eyebrow" id="modal-eyebrow"></span>
+                <h2 class="modal-name"><em>Aster</em> Piece</h2>
+                <div class="modal-price-row">
+                    <span class="modal-price" id="modal-price"></span>
+                    <button class="heart-btn" id="modal-fav" aria-label="Favorite">
+                        <i class="far fa-heart"></i>
+                    </button>
+                </div>
+
+                <div class="modal-list">
+                    <div><i class="fas fa-gem"></i><span>Premium materials, hand-finished</span></div>
+                    <div><i class="fas fa-truck"></i><span>Delivery available across Iraq</span></div>
+                    <div><i class="fas fa-shield-alt"></i><span>100% authentic, guaranteed</span></div>
+                </div>
+
+                <div class="qty-row">
+                    <span class="qty-label">Quantity</span>
+                    <div class="qty">
+                        <button id="qty-minus" aria-label="Decrease">−</button>
+                        <span id="qty-value">1</span>
+                        <button id="qty-plus" aria-label="Increase">+</button>
+                    </div>
+                </div>
+
+                <button class="cta cta-block" id="modal-order">
+                    <span><i class="fab fa-whatsapp"></i> Order via WhatsApp</span>
+                    <span class="cta-arrow"><i class="fas fa-arrow-right"></i></span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================
+     TOAST
+============================================ -->
+<div class="toast" id="toast">
+    <i class="fas fa-check"></i>
+    <span id="toast-msg"></span>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

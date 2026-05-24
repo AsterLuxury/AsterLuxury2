@@ -1,5 +1,5 @@
 /* ==========================================================
-   ASTER LUXURY — Editorial Couture Interactions
+   ASTER LUXURY — 2026 Refined Edition
    ========================================================== */
 
 const products = [
@@ -60,21 +60,18 @@ const products = [
     { id: 56, ref: "AL-056", image: "https://i.imgur.com/uncBlEB.jpeg", tags: ["exclusive"], price: "9,000 IQD" }
 ];
 
-const WHATSAPP_NUMBER = "9647503307830";
-const INITIAL_LOAD = 12;
-const LOAD_INCREMENT = 12;
-
-const FEATURED_IDS = [15, 12, 28, 20, 41, 14, 31, 4];
+const WA = "9647503307830";
+const $ = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 
 let currentFilter = 'all';
-let displayedCount = INITIAL_LOAD;
 let currentProduct = null;
-let favorites = JSON.parse(localStorage.getItem('aster_favorites') || '[]');
+let favorites = JSON.parse(localStorage.getItem('aster_favs') || '[]');
 
-const $ = (s) => document.querySelector(s);
-const $$ = (s) => document.querySelectorAll(s);
-
-function getBadgeText(p) {
+// ==========================================================
+// HELPERS
+// ==========================================================
+function badgeText(p) {
     if (p.tags.includes('limited')) return 'Limited';
     if (p.tags.includes('exclusive')) return 'Exclusive';
     if (p.tags.includes('namaya')) return 'Namaya';
@@ -83,8 +80,12 @@ function getBadgeText(p) {
     return 'Featured';
 }
 
-function isBadgeGold(p) {
+function isFeatured(p) {
     return p.tags.includes('limited') || p.tags.includes('exclusive') || p.tags.includes('namaya');
+}
+
+function tagDisplay(p) {
+    return p.tags[0].charAt(0).toUpperCase() + p.tags[0].slice(1);
 }
 
 function getFiltered() {
@@ -93,92 +94,25 @@ function getFiltered() {
 }
 
 // ==========================================================
-// LOADER
+// PROGRESS BAR (fallback for browsers without scroll-driven anim)
 // ==========================================================
-let loaderProgress = 0;
-const loaderEl = $('#loader');
-const loaderPercent = $('#loader-percent');
-
-const loaderInterval = setInterval(() => {
-    loaderProgress += Math.random() * 8 + 2;
-    if (loaderProgress >= 100) {
-        loaderProgress = 100;
-        clearInterval(loaderInterval);
-    }
-    loaderPercent.textContent = Math.floor(loaderProgress);
-}, 80);
-
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        loaderEl.classList.add('hidden');
-    }, 1800);
-});
-
-// ==========================================================
-// CUSTOM CURSOR
-// ==========================================================
-const cursor = $('#cursor');
-const cursorFollower = $('#cursor-follower');
-
-if (window.innerWidth > 1024) {
-    let mouseX = 0, mouseY = 0;
-    let followerX = 0, followerY = 0;
-
-    document.addEventListener('mousemove', (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-        cursor.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    });
-
-    function animateFollower() {
-        followerX += (mouseX - followerX) * 0.15;
-        followerY += (mouseY - followerY) * 0.15;
-        cursorFollower.style.transform = `translate(${followerX}px, ${followerY}px) translate(-50%, -50%)`;
-        requestAnimationFrame(animateFollower);
-    }
-    animateFollower();
-
-    // Cursor hover targets
-    document.addEventListener('mouseover', (e) => {
-        const target = e.target.closest('a, button, [data-magnetic], .product-card, .bento-item, .editorial-item, input');
-        if (target) {
-            cursor.classList.add('hover');
-            cursorFollower.classList.add('hover');
-        }
-    });
-
-    document.addEventListener('mouseout', (e) => {
-        const target = e.target.closest('a, button, [data-magnetic], .product-card, .bento-item, .editorial-item, input');
-        if (target) {
-            cursor.classList.remove('hover');
-            cursorFollower.classList.remove('hover');
-        }
-    });
-}
-
-// ==========================================================
-// MAGNETIC BUTTONS
-// ==========================================================
-if (window.innerWidth > 1024) {
-    document.querySelectorAll('[data-magnetic]').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            el.style.transform = `translate(${x * 0.2}px, ${y * 0.2}px)`;
-        });
-        el.addEventListener('mouseleave', () => {
-            el.style.transform = 'translate(0, 0)';
-        });
-    });
+const progressFill = $('#progress-fill');
+if (!CSS.supports('animation-timeline: scroll()')) {
+    window.addEventListener('scroll', () => {
+        const scrolled = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+        progressFill.style.width = scrolled + '%';
+    }, { passive: true });
 }
 
 // ==========================================================
 // HEADER SCROLL
 // ==========================================================
 const header = $('#header');
+let lastY = 0;
 window.addEventListener('scroll', () => {
-    header.classList.toggle('scrolled', window.scrollY > 50);
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 20);
+    lastY = y;
 }, { passive: true });
 
 // ==========================================================
@@ -188,15 +122,15 @@ const menuToggle = $('#menu-toggle');
 const mobileMenu = $('#mobile-menu');
 
 menuToggle.addEventListener('click', () => {
-    menuToggle.classList.toggle('active');
-    mobileMenu.classList.toggle('open');
-    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+    const open = mobileMenu.classList.toggle('open');
+    menuToggle.classList.toggle('active', open);
+    document.body.style.overflow = open ? 'hidden' : '';
 });
 
-$$('.mobile-menu a[href^="#"]').forEach(link => {
-    link.addEventListener('click', () => {
-        menuToggle.classList.remove('active');
+$$('.mobile-menu a').forEach(a => {
+    a.addEventListener('click', () => {
         mobileMenu.classList.remove('open');
+        menuToggle.classList.remove('active');
         document.body.style.overflow = '';
     });
 });
@@ -204,216 +138,150 @@ $$('.mobile-menu a[href^="#"]').forEach(link => {
 // ==========================================================
 // FILTER COUNTS
 // ==========================================================
-function updateFilterCounts() {
+function updateCounts() {
     $('#count-all').textContent = products.length;
-    $('#count-new').textContent = products.filter(p => p.tags.includes('new')).length;
-    $('#count-trending').textContent = products.filter(p => p.tags.includes('trending')).length;
-    $('#count-exclusive').textContent = products.filter(p => p.tags.includes('exclusive')).length;
-    $('#count-limited').textContent = products.filter(p => p.tags.includes('limited')).length;
-    $('#count-namaya').textContent = products.filter(p => p.tags.includes('namaya')).length;
+    ['new', 'trending', 'exclusive', 'limited', 'namaya'].forEach(t => {
+        const el = $(`#count-${t}`);
+        if (el) el.textContent = products.filter(p => p.tags.includes(t)).length;
+    });
 }
 
 // ==========================================================
-// PRODUCT GRID
+// PRODUCT GRID (all visible, refined stagger)
 // ==========================================================
-function renderProducts() {
-    const grid = $('#product-grid');
-    const filtered = getFiltered();
-    const toShow = filtered.slice(0, displayedCount);
+const grid = $('#grid');
+const empty = $('#empty');
+const visibleCount = $('#visible-count');
 
+function renderGrid() {
+    const list = getFiltered();
     grid.innerHTML = '';
 
-    toShow.forEach((p, i) => {
-        const isFav = favorites.includes(p.id);
-        const badgeText = getBadgeText(p);
-        const badgeClass = isBadgeGold(p) ? 'gold' : '';
-        const tagDisplay = p.tags[0].charAt(0).toUpperCase() + p.tags[0].slice(1);
+    if (list.length === 0) {
+        empty.hidden = false;
+        visibleCount.textContent = 0;
+        return;
+    }
+    empty.hidden = true;
+    visibleCount.textContent = list.length;
 
+    const frag = document.createDocumentFragment();
+    list.forEach((p, i) => {
+        const isFav = favorites.includes(p.id);
         const card = document.createElement('article');
-        card.className = 'product-card';
-        card.style.transitionDelay = (i % 12) * 60 + 'ms';
+        card.className = 'card';
+        card.dataset.id = p.id;
+        card.style.transitionDelay = Math.min(i * 30, 600) + 'ms';
         card.innerHTML = `
-            <div class="product-image" data-id="${p.id}">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                <button class="product-fav ${isFav ? 'active' : ''}" data-id="${p.id}" aria-label="Favorite">
+            <div class="card-frame">
+                <span class="card-badge ${isFeatured(p) ? 'featured' : ''}">${badgeText(p)}</span>
+                <button class="heart-btn ${isFav ? 'active' : ''}" data-fav="${p.id}" aria-label="Favorite">
                     <i class="${isFav ? 'fas' : 'far'} fa-heart"></i>
                 </button>
-                <img src="${p.image}" alt="Aster Luxury ${p.ref}" loading="lazy">
-                <span class="product-quick-view" data-id="${p.id}">
-                    <i class="fas fa-expand"></i> View Detail
-                </span>
-            </div>
-            <div class="product-info">
-                <div class="product-info-row">
-                    <span class="product-ref">Ref. ${p.ref}</span>
-                    <span class="product-tag">${tagDisplay}</span>
-                </div>
-                <h3 class="product-title" data-id="${p.id}"><span class="italic">Aster</span>Piece</h3>
-                <div class="product-bottom">
-                    <span class="product-price">${p.price}</span>
-                    <button class="product-order-btn" data-order-id="${p.id}">
+                <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
+                <div class="card-quick">
+                    <span class="card-quick-text">View detail</span>
+                    <button class="card-quick-order" data-order="${p.id}" aria-label="Order">
                         <i class="fab fa-whatsapp"></i>
-                        <span>Order</span>
                     </button>
                 </div>
             </div>
+            <div class="card-meta">
+                <span class="card-ref">Ref. ${p.ref}</span>
+                <span class="card-tag">${tagDisplay(p)}</span>
+            </div>
+            <h3 class="card-name"><em>Aster</em>Piece</h3>
+            <span class="card-price">${p.price}</span>
         `;
-        grid.appendChild(card);
+        frag.appendChild(card);
     });
+    grid.appendChild(frag);
 
-    requestAnimationFrame(() => {
-        $$('.product-card').forEach((card, i) => {
-            setTimeout(() => card.classList.add('visible'), i * 30);
-        });
-    });
-
-    const loadMoreWrapper = $('.load-more-wrapper');
-    if (filtered.length <= displayedCount) {
-        loadMoreWrapper.classList.add('hidden');
+    // Reveal each card as it enters viewport
+    const cards = $$('.card', grid);
+    if ('IntersectionObserver' in window) {
+        const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+                if (e.isIntersecting) {
+                    e.target.classList.add('in');
+                    obs.unobserve(e.target);
+                }
+            });
+        }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+        cards.forEach(c => obs.observe(c));
     } else {
-        loadMoreWrapper.classList.remove('hidden');
+        cards.forEach(c => c.classList.add('in'));
     }
 
-    attachProductHandlers();
+    attachCardHandlers();
 }
 
-function attachProductHandlers() {
-    $$('.product-image[data-id], .product-title[data-id], .product-quick-view[data-id]').forEach(el => {
-        el.addEventListener('click', (e) => {
-            e.stopPropagation();
-            openModal(parseInt(el.dataset.id));
+function attachCardHandlers() {
+    $$('.card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('[data-fav]') || e.target.closest('[data-order]')) return;
+            openModal(parseInt(card.dataset.id));
         });
     });
 
-    $$('.product-order-btn[data-order-id]').forEach(btn => {
+    $$('[data-fav]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            quickOrder(parseInt(btn.dataset.orderId));
+            toggleFav(parseInt(btn.dataset.fav));
         });
     });
 
-    $$('.product-fav[data-id]').forEach(btn => {
+    $$('[data-order]').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            toggleFavorite(parseInt(btn.dataset.id));
+            quickOrder(parseInt(btn.dataset.order));
         });
-    });
-}
-
-// ==========================================================
-// BENTO GRID
-// ==========================================================
-function renderBento() {
-    const grid = $('#bento-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-
-    FEATURED_IDS.forEach((id, i) => {
-        const p = products.find(x => x.id === id);
-        if (!p) return;
-
-        const badge = getBadgeText(p);
-        const item = document.createElement('div');
-        item.className = 'bento-item';
-        item.style.transitionDelay = (i * 80) + 'ms';
-        item.dataset.id = p.id;
-        item.innerHTML = `
-            <span class="bento-badge">${badge}</span>
-            <img src="${p.image}" alt="Aster Luxury ${p.ref}" loading="lazy">
-            <div class="bento-overlay">
-                <div class="bento-info">
-                    <span class="bento-ref">Ref. ${p.ref}</span>
-                    <h3 class="bento-name"><span class="italic">Aster</span>Piece</h3>
-                    <div class="bento-price">${p.price}</div>
-                </div>
-            </div>
-        `;
-        item.addEventListener('click', () => openModal(p.id));
-        grid.appendChild(item);
-    });
-
-    // Reveal
-    const obs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('visible');
-                obs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.1 });
-    $$('.bento-item').forEach(el => obs.observe(el));
-}
-
-// ==========================================================
-// EDITORIAL
-// ==========================================================
-const editorialData = [
-    { image: "https://i.imgur.com/m0g8dYS.jpg", num: "01", title: "The Signature", meta: ["Curated", "Volume I"] },
-    { image: "https://i.imgur.com/LTpzHsW.jpg", num: "02", title: "Evening Glamour", meta: ["Exclusive", "Editorial"] },
-    { image: "https://i.imgur.com/UyzPCFl.jpg", num: "03", title: "Modern Romance", meta: ["Trending", "2026"] },
-    { image: "https://i.imgur.com/Av9tP4X.jpg", num: "04", title: "Timeless Edit", meta: ["Featured", "Limited"] },
-    { image: "https://i.imgur.com/pHJk2Xe.jpg", num: "05", title: "Crystal Allure", meta: ["New", "Namaya"] }
-];
-
-function renderEditorial() {
-    const grid = $('#editorial-grid');
-    if (!grid) return;
-    grid.innerHTML = '';
-    editorialData.forEach((item, i) => {
-        const div = document.createElement('div');
-        div.className = 'editorial-item';
-        div.innerHTML = `
-            <img src="${item.image}" alt="${item.title}" loading="lazy">
-            <div class="editorial-overlay">
-                <span class="editorial-num">N° ${item.num}</span>
-                <h3 class="editorial-title">${item.title}</h3>
-                <div class="editorial-meta">
-                    ${item.meta.map(m => `<span>${m}</span>`).join('')}
-                </div>
-            </div>
-        `;
-        div.addEventListener('click', () => {
-            $('#collections').scrollIntoView({ behavior: 'smooth' });
-        });
-        grid.appendChild(div);
     });
 }
 
 // ==========================================================
 // FILTERS
 // ==========================================================
-$$('.filter-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        $$('.filter-btn').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentFilter = btn.dataset.filter;
-        displayedCount = INITIAL_LOAD;
-        renderProducts();
+$$('.chip[data-filter]').forEach(chip => {
+    chip.addEventListener('click', () => {
+        $$('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.filter;
+        renderGrid();
     });
 });
 
+// Footer quick filters
 $$('[data-quick-filter]').forEach(link => {
     link.addEventListener('click', (e) => {
         e.preventDefault();
         const filter = link.dataset.quickFilter;
-        const btn = document.querySelector(`.filter-btn[data-filter="${filter}"]`);
-        if (btn) btn.click();
-        $('#collections').scrollIntoView({ behavior: 'smooth' });
+        const chip = $(`.chip[data-filter="${filter}"]`);
+        if (chip) chip.click();
+        $('#shop').scrollIntoView({ behavior: 'smooth' });
     });
 });
 
+// Empty state reset
+$('.empty button')?.addEventListener('click', () => {
+    $('.chip[data-filter="all"]').click();
+});
+
 // ==========================================================
-// LOAD MORE
+// VIEW DENSITY TOGGLE
 // ==========================================================
-$('#load-more').addEventListener('click', () => {
-    displayedCount += LOAD_INCREMENT;
-    renderProducts();
+const viewToggle = $('#view-toggle');
+viewToggle.addEventListener('click', () => {
+    grid.classList.toggle('dense');
+    viewToggle.classList.toggle('dense');
+    const isDense = grid.classList.contains('dense');
+    viewToggle.querySelector('i').className = isDense ? 'fas fa-th' : 'fas fa-th-large';
 });
 
 // ==========================================================
 // MODAL
 // ==========================================================
-const modal = $('#product-modal');
+const modal = $('#modal');
 
 function openModal(id) {
     const p = products.find(x => x.id === id);
@@ -421,58 +289,60 @@ function openModal(id) {
     currentProduct = p;
 
     $('#modal-image').src = p.image;
-    $('#modal-image').alt = `Aster Luxury ${p.ref}`;
-    $('#modal-ref').textContent = `Reference ${p.ref}`;
+    $('#modal-image').alt = `Aster ${p.ref}`;
+    $('#modal-eyebrow').textContent = `${badgeText(p)} · Ref. ${p.ref}`;
     $('#modal-price').textContent = p.price;
-    $('#modal-badge').textContent = getBadgeText(p);
-    $('#qty-input').value = 1;
+    $('#qty-value').textContent = 1;
 
     const isFav = favorites.includes(p.id);
-    const favBtn = $('#modal-favorite');
+    const favBtn = $('#modal-fav');
     favBtn.classList.toggle('active', isFav);
     favBtn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
 
-    modal.classList.add('open');
+    modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 }
 
 function closeModal() {
-    modal.classList.remove('open');
+    modal.setAttribute('aria-hidden', 'true');
     document.body.style.overflow = '';
     currentProduct = null;
 }
 
-$('#modal-close').addEventListener('click', closeModal);
-$('.modal-backdrop').addEventListener('click', closeModal);
+$$('[data-close]').forEach(el => el.addEventListener('click', closeModal));
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeModal();
 });
 
-$('#qty-decrease').addEventListener('click', () => {
-    const input = $('#qty-input');
-    const val = parseInt(input.value);
-    if (val > 1) input.value = val - 1;
+// Quantity
+let qty = 1;
+$('#qty-minus').addEventListener('click', () => {
+    if (qty > 1) {
+        qty--;
+        $('#qty-value').textContent = qty;
+    }
+});
+$('#qty-plus').addEventListener('click', () => {
+    if (qty < 10) {
+        qty++;
+        $('#qty-value').textContent = qty;
+    }
 });
 
-$('#qty-increase').addEventListener('click', () => {
-    const input = $('#qty-input');
-    const val = parseInt(input.value);
-    if (val < 10) input.value = val + 1;
-});
-
+// Modal order
 $('#modal-order').addEventListener('click', () => {
     if (!currentProduct) return;
-    const qty = $('#qty-input').value;
-    const message = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${currentProduct.ref}\nPrice: ${currentProduct.price}\nQuantity: ${qty}\n\nPlease share more details. Thank you!`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    const q = parseInt($('#qty-value').textContent);
+    const msg = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${currentProduct.ref}\nPrice: ${currentProduct.price}\nQuantity: ${q}\n\nPlease share more details. Thank you!`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
 });
 
-$('#modal-favorite').addEventListener('click', () => {
+// Modal favorite
+$('#modal-fav').addEventListener('click', () => {
     if (!currentProduct) return;
-    toggleFavorite(currentProduct.id);
+    toggleFav(currentProduct.id);
     const isFav = favorites.includes(currentProduct.id);
-    const btn = $('#modal-favorite');
+    const btn = $('#modal-fav');
     btn.classList.toggle('active', isFav);
     btn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
 });
@@ -483,27 +353,26 @@ $('#modal-favorite').addEventListener('click', () => {
 function quickOrder(id) {
     const p = products.find(x => x.id === id);
     if (!p) return;
-    const message = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${p.ref}\nPrice: ${p.price}\nQuantity: 1\n\nPlease share more details. Thank you!`;
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
+    const msg = `Hello Aster Luxury,\n\nI would like to order:\n\nReference: ${p.ref}\nPrice: ${p.price}\nQuantity: 1\n\nPlease share more details. Thank you!`;
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
 }
 
 // ==========================================================
 // FAVORITES
 // ==========================================================
-function toggleFavorite(id) {
-    const idx = favorites.indexOf(id);
-    if (idx === -1) {
+function toggleFav(id) {
+    const i = favorites.indexOf(id);
+    if (i === -1) {
         favorites.push(id);
-        showToast('Added to favorites');
+        toast('Added to favorites');
     } else {
-        favorites.splice(idx, 1);
-        showToast('Removed from favorites');
+        favorites.splice(i, 1);
+        toast('Removed from favorites');
     }
-    localStorage.setItem('aster_favorites', JSON.stringify(favorites));
+    localStorage.setItem('aster_favs', JSON.stringify(favorites));
     updateFavCount();
 
-    document.querySelectorAll(`.product-fav[data-id="${id}"]`).forEach(btn => {
+    $$(`[data-fav="${id}"]`).forEach(btn => {
         const isFav = favorites.includes(id);
         btn.classList.toggle('active', isFav);
         btn.querySelector('i').className = (isFav ? 'fas' : 'far') + ' fa-heart';
@@ -512,57 +381,54 @@ function toggleFavorite(id) {
 
 function updateFavCount() {
     const badge = $('#fav-count');
-    badge.textContent = favorites.length;
-    badge.classList.toggle('show', favorites.length > 0);
+    if (favorites.length > 0) {
+        badge.textContent = favorites.length;
+        badge.classList.add('show');
+    } else {
+        badge.classList.remove('show');
+    }
 }
 
 $('#favorites-btn').addEventListener('click', () => {
     if (favorites.length === 0) {
-        showToast('No favorites yet — tap the heart on any piece');
+        toast('No favorites yet — tap the heart on any piece');
         return;
     }
-    const grid = $('#product-grid');
+    // Show only favorites in grid
+    const list = products.filter(p => favorites.includes(p.id));
     grid.innerHTML = '';
-    const favProducts = products.filter(p => favorites.includes(p.id));
-    favProducts.forEach((p, i) => {
-        const badgeText = getBadgeText(p);
-        const badgeClass = isBadgeGold(p) ? 'gold' : '';
-        const tagDisplay = p.tags[0].charAt(0).toUpperCase() + p.tags[0].slice(1);
+    visibleCount.textContent = list.length;
+    list.forEach(p => {
         const card = document.createElement('article');
-        card.className = 'product-card visible';
+        card.className = 'card in';
+        card.dataset.id = p.id;
         card.innerHTML = `
-            <div class="product-image" data-id="${p.id}">
-                <span class="product-badge ${badgeClass}">${badgeText}</span>
-                <button class="product-fav active" data-id="${p.id}" aria-label="Favorite">
+            <div class="card-frame">
+                <span class="card-badge ${isFeatured(p) ? 'featured' : ''}">${badgeText(p)}</span>
+                <button class="heart-btn active" data-fav="${p.id}" aria-label="Favorite">
                     <i class="fas fa-heart"></i>
                 </button>
-                <img src="${p.image}" alt="Aster Luxury ${p.ref}" loading="lazy">
-                <span class="product-quick-view" data-id="${p.id}">
-                    <i class="fas fa-expand"></i> View Detail
-                </span>
-            </div>
-            <div class="product-info">
-                <div class="product-info-row">
-                    <span class="product-ref">Ref. ${p.ref}</span>
-                    <span class="product-tag">${tagDisplay}</span>
-                </div>
-                <h3 class="product-title" data-id="${p.id}"><span class="italic">Aster</span>Piece</h3>
-                <div class="product-bottom">
-                    <span class="product-price">${p.price}</span>
-                    <button class="product-order-btn" data-order-id="${p.id}">
+                <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
+                <div class="card-quick">
+                    <span class="card-quick-text">View detail</span>
+                    <button class="card-quick-order" data-order="${p.id}" aria-label="Order">
                         <i class="fab fa-whatsapp"></i>
-                        <span>Order</span>
                     </button>
                 </div>
             </div>
+            <div class="card-meta">
+                <span class="card-ref">Ref. ${p.ref}</span>
+                <span class="card-tag">${tagDisplay(p)}</span>
+            </div>
+            <h3 class="card-name"><em>Aster</em>Piece</h3>
+            <span class="card-price">${p.price}</span>
         `;
         grid.appendChild(card);
     });
-    $$('.filter-btn').forEach(b => b.classList.remove('active'));
-    $('.load-more-wrapper').classList.add('hidden');
-    attachProductHandlers();
-    $('#collections').scrollIntoView({ behavior: 'smooth' });
-    showToast(`${favorites.length} favorite${favorites.length > 1 ? 's' : ''} curated for you`);
+    $$('.chip[data-filter]').forEach(c => c.classList.remove('active'));
+    $('#shop').scrollIntoView({ behavior: 'smooth' });
+    toast(`${list.length} favorite piece${list.length > 1 ? 's' : ''}`);
+    attachCardHandlers();
 });
 
 // ==========================================================
@@ -573,171 +439,121 @@ const searchInput = $('#search-input');
 const searchResults = $('#search-results');
 
 $('#search-btn').addEventListener('click', () => {
-    searchOverlay.classList.toggle('open');
-    if (searchOverlay.classList.contains('open')) {
-        setTimeout(() => searchInput.focus(), 100);
-    }
+    searchOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => searchInput.focus(), 200);
 });
 
 $('#search-close').addEventListener('click', () => {
     searchOverlay.classList.remove('open');
+    document.body.style.overflow = '';
     searchInput.value = '';
     searchResults.innerHTML = '';
 });
 
-searchInput.addEventListener('input', (e) => {
-    const query = e.target.value.toLowerCase().trim();
-    searchResults.innerHTML = '';
-    if (!query) return;
+$$('.suggestion-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        searchInput.value = chip.dataset.search;
+        searchInput.dispatchEvent(new Event('input'));
+        searchInput.focus();
+    });
+});
 
+function runSearch(q) {
+    searchResults.innerHTML = '';
+    if (!q) return;
     const matches = products.filter(p =>
-        p.ref.toLowerCase().includes(query) ||
-        p.tags.some(t => t.includes(query)) ||
-        p.price.toLowerCase().replace(/,/g, '').includes(query.replace(/,/g, ''))
+        p.ref.toLowerCase().includes(q) ||
+        p.tags.some(t => t.includes(q)) ||
+        p.price.toLowerCase().replace(/,/g, '').includes(q.replace(/,/g, ''))
     ).slice(0, 8);
 
     if (matches.length === 0) {
-        searchResults.innerHTML = `<div style="padding: 32px; text-align: center; color: var(--grey-500); font-style: italic;">No matches found — try AL-001, exclusive, or a price</div>`;
+        searchResults.innerHTML = `<div style="padding: 24px; text-align: center; color: var(--muted); font-style: italic;">No matches — try a reference like AL-015</div>`;
         return;
     }
-
     matches.forEach(p => {
-        const item = document.createElement('div');
-        item.className = 'search-result-item';
+        const item = document.createElement('button');
+        item.className = 'search-result';
         item.innerHTML = `
             <img src="${p.image}" alt="${p.ref}">
             <div class="search-result-info">
                 <strong>Aster Piece — Ref. ${p.ref}</strong>
-                <span>${p.price} · ${p.tags[0]}</span>
+                <span>${p.price} · ${tagDisplay(p)}</span>
             </div>
+            <i class="fas fa-arrow-right search-result-arrow"></i>
         `;
         item.addEventListener('click', () => {
-            searchOverlay.classList.remove('open');
-            searchInput.value = '';
-            searchResults.innerHTML = '';
-            openModal(p.id);
+            $('#search-close').click();
+            setTimeout(() => openModal(p.id), 300);
         });
         searchResults.appendChild(item);
     });
+}
+
+searchInput.addEventListener('input', (e) => {
+    runSearch(e.target.value.toLowerCase().trim());
 });
 
 // ==========================================================
 // TOAST
 // ==========================================================
 let toastTimer;
-function showToast(message) {
-    const toast = $('#toast');
-    $('#toast-message').textContent = message;
-    toast.classList.add('show');
+function toast(msg) {
+    const el = $('#toast');
+    $('#toast-msg').textContent = msg;
+    el.classList.add('show');
     clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+    toastTimer = setTimeout(() => el.classList.remove('show'), 2400);
 }
 
 // ==========================================================
-// SCROLL REVEAL
+// ACTIVE NAV ON SCROLL
 // ==========================================================
-const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            revealObserver.unobserve(entry.target);
-        }
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -80px 0px' });
-
-function observeReveals() {
-    $$('.reveal').forEach(el => revealObserver.observe(el));
-}
-
-// ==========================================================
-// QUOTE WORD ANIMATION
-// ==========================================================
-const quoteContent = document.querySelector('.quote-content');
-if (quoteContent) {
-    const quoteObs = new IntersectionObserver((entries) => {
-        entries.forEach(e => {
-            if (e.isIntersecting) {
-                e.target.classList.add('in-view');
-                quoteObs.unobserve(e.target);
-            }
-        });
-    }, { threshold: 0.3 });
-    quoteObs.observe(quoteContent);
-}
-
-// ==========================================================
-// ACTIVE NAV
-// ==========================================================
-const sections = ['home', 'collections', 'editorial', 'story', 'contact'];
+const sections = ['home', 'shop', 'story', 'contact'];
 const navLinks = $$('.nav-link');
 
+let scrollTicking = false;
 window.addEventListener('scroll', () => {
-    let current = 'home';
-    sections.forEach(id => {
-        const section = document.getElementById(id);
-        if (section) {
-            const top = section.offsetTop - 150;
-            if (window.scrollY >= top) current = id;
-        }
-    });
-    navLinks.forEach(link => {
-        link.classList.toggle('active', link.getAttribute('href') === '#' + current);
-    });
+    if (!scrollTicking) {
+        requestAnimationFrame(() => {
+            let current = 'home';
+            sections.forEach(id => {
+                const sec = document.getElementById(id);
+                if (sec && window.scrollY >= sec.offsetTop - 150) current = id;
+            });
+            navLinks.forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+            });
+            scrollTicking = false;
+        });
+        scrollTicking = true;
+    }
 }, { passive: true });
 
 // ==========================================================
-// TESTIMONIAL DOTS
+// SUBTLE PARALLAX ON HERO IMAGES (desktop only)
 // ==========================================================
-function setupTestimonialDots() {
-    const track = $('#testimonial-track');
-    const dotsContainer = $('#testimonial-dots');
-    if (!track || !dotsContainer) return;
+const heroVisual = $('.hero-visual');
+const heroImgMain = $('.hero-img-main');
+const heroImg2 = $('.hero-img-2');
+const heroImg3 = $('.hero-img-3');
 
-    const items = track.querySelectorAll('.testimonial');
-    dotsContainer.innerHTML = '';
-
-    items.forEach((_, i) => {
-        const dot = document.createElement('span');
-        dot.className = 'dot';
-        if (i === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => {
-            items[i].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-        });
-        dotsContainer.appendChild(dot);
-    });
-
-    track.addEventListener('scroll', () => {
-        const scrollLeft = track.scrollLeft;
-        const itemWidth = items[0].offsetWidth + 32;
-        const activeIndex = Math.round(scrollLeft / itemWidth);
-        dotsContainer.querySelectorAll('.dot').forEach((d, i) => {
-            d.classList.toggle('active', i === activeIndex);
-        });
-    }, { passive: true });
-}
-
-// ==========================================================
-// HERO PARALLAX
-// ==========================================================
-const heroImg1 = document.querySelector('.hero-img-1');
-const heroImg2 = document.querySelector('.hero-img-2');
-const heroImg3 = document.querySelector('.hero-img-3');
-
-if (heroImg1 && window.innerWidth > 1024) {
-    document.querySelector('.hero-frame')?.addEventListener('mousemove', (e) => {
-        const rect = e.currentTarget.getBoundingClientRect();
+if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches && heroVisual) {
+    heroVisual.addEventListener('mousemove', (e) => {
+        const rect = heroVisual.getBoundingClientRect();
         const x = (e.clientX - rect.left) / rect.width - 0.5;
         const y = (e.clientY - rect.top) / rect.height - 0.5;
 
-        heroImg1.style.transform = `translate(${x * 15}px, ${y * 15}px)`;
-        heroImg2.style.transform = `translate(${x * -10}px, ${y * -10}px)`;
-        heroImg3.style.transform = `translate(${x * 25}px, ${y * 25}px)`;
+        if (heroImgMain) heroImgMain.style.transform = `translate3d(${x * 12}px, ${y * 12}px, 0)`;
+        if (heroImg2) heroImg2.style.transform = `translate3d(${x * -8}px, ${y * -8}px, 0)`;
+        if (heroImg3) heroImg3.style.transform = `translate3d(${x * 18}px, ${y * 18}px, 0)`;
     });
 
-    document.querySelector('.hero-frame')?.addEventListener('mouseleave', () => {
-        heroImg1.style.transform = '';
-        heroImg2.style.transform = '';
-        heroImg3.style.transform = '';
+    heroVisual.addEventListener('mouseleave', () => {
+        if (heroImgMain) heroImgMain.style.transform = '';
+        if (heroImg2) heroImg2.style.transform = '';
+        if (heroImg3) heroImg3.style.transform = '';
     });
 }
 
@@ -749,10 +565,6 @@ $('#year').textContent = new Date().getFullYear();
 // ==========================================================
 // INIT
 // ==========================================================
-updateFilterCounts();
-renderBento();
-renderProducts();
-renderEditorial();
+updateCounts();
+renderGrid();
 updateFavCount();
-observeReveals();
-setupTestimonialDots();

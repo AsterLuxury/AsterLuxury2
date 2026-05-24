@@ -67,10 +67,18 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 let currentFilter = 'all';
 let currentProduct = null;
 let favorites = JSON.parse(localStorage.getItem('aster_favs') || '[]');
+let cart = JSON.parse(localStorage.getItem('aster_cart') || '[]');
 
 // ==========================================================
 // HELPERS
 // ==========================================================
+function priceToNumber(priceStr) {
+    return parseInt(priceStr.replace(/[^0-9]/g, ''), 10) || 0;
+}
+
+function formatIQD(n) {
+    return n.toLocaleString('en-US') + ' IQD';
+}
 function badgeText(p) {
     if (p.tags.includes('limited')) return 'Limited';
     if (p.tags.includes('exclusive')) return 'Exclusive';
@@ -168,8 +176,9 @@ function renderGrid() {
     const frag = document.createDocumentFragment();
     list.forEach((p, i) => {
         const isFav = favorites.includes(p.id);
+        const inCart = cart.some(c => c.id === p.id);
         const card = document.createElement('article');
-        card.className = 'card';
+        card.className = 'card' + (inCart ? ' in-cart' : '');
         card.dataset.id = p.id;
         card.style.transitionDelay = Math.min(i * 30, 600) + 'ms';
         card.innerHTML = `
@@ -180,9 +189,9 @@ function renderGrid() {
                 </button>
                 <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
                 <div class="card-quick">
-                    <span class="card-quick-text">View detail</span>
-                    <button class="card-quick-order" data-order="${p.id}" aria-label="Order">
-                        <i class="fab fa-whatsapp"></i>
+                    <span class="card-quick-text">${inCart ? 'Added · view detail' : 'View detail'}</span>
+                    <button class="card-quick-order" data-add="${p.id}" aria-label="${inCart ? 'In cart' : 'Add to cart'}" title="${inCart ? 'In cart' : 'Add to cart'}">
+                        <i class="fas ${inCart ? 'fa-check' : 'fa-plus'}"></i>
                     </button>
                 </div>
             </div>
@@ -219,7 +228,7 @@ function renderGrid() {
 function attachCardHandlers() {
     $$('.card').forEach(card => {
         card.addEventListener('click', (e) => {
-            if (e.target.closest('[data-fav]') || e.target.closest('[data-order]')) return;
+            if (e.target.closest('[data-fav]') || e.target.closest('[data-add]') || e.target.closest('[data-order]')) return;
             openModal(parseInt(card.dataset.id));
         });
     });
@@ -228,6 +237,13 @@ function attachCardHandlers() {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
             toggleFav(parseInt(btn.dataset.fav));
+        });
+    });
+
+    $$('[data-add]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            addToCart(parseInt(btn.dataset.add));
         });
     });
 
@@ -330,6 +346,15 @@ $('#qty-plus').addEventListener('click', () => {
 });
 
 // Modal order
+// Modal: Add to cart
+$('#modal-add').addEventListener('click', () => {
+    if (!currentProduct) return;
+    const q = parseInt($('#qty-value').textContent);
+    addToCart(currentProduct.id, q);
+    closeModal();
+});
+
+// Modal: Order this single piece now
 $('#modal-order').addEventListener('click', () => {
     if (!currentProduct) return;
     const q = parseInt($('#qty-value').textContent);
@@ -399,8 +424,9 @@ $('#favorites-btn').addEventListener('click', () => {
     grid.innerHTML = '';
     visibleCount.textContent = list.length;
     list.forEach(p => {
+        const inCart = cart.some(c => c.id === p.id);
         const card = document.createElement('article');
-        card.className = 'card in';
+        card.className = 'card in' + (inCart ? ' in-cart' : '');
         card.dataset.id = p.id;
         card.innerHTML = `
             <div class="card-frame">
@@ -410,9 +436,9 @@ $('#favorites-btn').addEventListener('click', () => {
                 </button>
                 <img class="card-img" src="${p.image}" alt="Aster ${p.ref}" loading="lazy">
                 <div class="card-quick">
-                    <span class="card-quick-text">View detail</span>
-                    <button class="card-quick-order" data-order="${p.id}" aria-label="Order">
-                        <i class="fab fa-whatsapp"></i>
+                    <span class="card-quick-text">${inCart ? 'Added · view detail' : 'View detail'}</span>
+                    <button class="card-quick-order" data-add="${p.id}" aria-label="${inCart ? 'In cart' : 'Add to cart'}">
+                        <i class="fas ${inCart ? 'fa-check' : 'fa-plus'}"></i>
                     </button>
                 </div>
             </div>
@@ -563,8 +589,210 @@ if (window.matchMedia('(hover: hover) and (min-width: 1024px)').matches && heroV
 $('#year').textContent = new Date().getFullYear();
 
 // ==========================================================
+// CART
+// ==========================================================
+const cartDrawer = $('#cart-drawer');
+const cartBody = $('#cart-body');
+
+function saveCart() {
+    localStorage.setItem('aster_cart', JSON.stringify(cart));
+}
+
+function addToCart(id, qty = 1) {
+    const product = products.find(p => p.id === id);
+    if (!product) return;
+
+    const existing = cart.find(c => c.id === id);
+    if (existing) {
+        existing.qty = Math.min(10, existing.qty + qty);
+        toast(`Quantity updated · Ref. ${product.ref}`);
+    } else {
+        cart.push({ id, qty });
+        toast(`Added to cart · Ref. ${product.ref}`);
+    }
+    saveCart();
+    updateCartCount();
+    renderCart();
+    refreshCardCartState(id);
+    pulseCartBtn();
+}
+
+function removeFromCart(id) {
+    cart = cart.filter(c => c.id !== id);
+    saveCart();
+    updateCartCount();
+    renderCart();
+    refreshCardCartState(id);
+}
+
+function updateCartQty(id, delta) {
+    const item = cart.find(c => c.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, Math.min(10, item.qty + delta));
+    saveCart();
+    updateCartCount();
+    renderCart();
+}
+
+function clearCart() {
+    const ids = cart.map(c => c.id);
+    cart = [];
+    saveCart();
+    updateCartCount();
+    renderCart();
+    ids.forEach(refreshCardCartState);
+    toast('Cart cleared');
+}
+
+function refreshCardCartState(id) {
+    const inCart = cart.some(c => c.id === id);
+    document.querySelectorAll(`.card[data-id="${id}"]`).forEach(card => {
+        card.classList.toggle('in-cart', inCart);
+        const btn = card.querySelector('[data-add]');
+        if (btn) {
+            btn.querySelector('i').className = 'fas ' + (inCart ? 'fa-check' : 'fa-plus');
+            btn.setAttribute('aria-label', inCart ? 'In cart' : 'Add to cart');
+            btn.setAttribute('title', inCart ? 'In cart' : 'Add to cart');
+        }
+        const text = card.querySelector('.card-quick-text');
+        if (text) text.textContent = inCart ? 'Added · view detail' : 'View detail';
+    });
+}
+
+function updateCartCount() {
+    const count = cart.reduce((sum, c) => sum + c.qty, 0);
+    const badge = $('#cart-count');
+    if (count > 0) {
+        badge.textContent = count;
+        badge.classList.add('show');
+    } else {
+        badge.classList.remove('show');
+    }
+}
+
+function pulseCartBtn() {
+    const btn = $('#cart-btn');
+    btn.querySelector('i').classList.add('in-cart-pulse');
+    setTimeout(() => btn.querySelector('i').classList.remove('in-cart-pulse'), 600);
+}
+
+function renderCart() {
+    if (cart.length === 0) {
+        cartDrawer.classList.add('empty');
+        cartBody.innerHTML = '';
+        return;
+    }
+    cartDrawer.classList.remove('empty');
+
+    cartBody.innerHTML = '';
+    let total = 0;
+    let itemCount = 0;
+
+    cart.forEach(c => {
+        const p = products.find(x => x.id === c.id);
+        if (!p) return;
+        const unit = priceToNumber(p.price);
+        const lineTotal = unit * c.qty;
+        total += lineTotal;
+        itemCount += c.qty;
+
+        const item = document.createElement('div');
+        item.className = 'cart-item';
+        item.innerHTML = `
+            <img src="${p.image}" alt="Aster ${p.ref}">
+            <div class="cart-item-info">
+                <div class="cart-item-top">
+                    <div class="cart-item-meta">
+                        <span class="cart-item-ref">Ref. ${p.ref}</span>
+                        <h4 class="cart-item-name"><em>Aster</em>Piece</h4>
+                        <div class="cart-item-price">${p.price}</div>
+                    </div>
+                    <button class="cart-item-remove" data-cart-remove="${p.id}" aria-label="Remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="cart-item-bottom">
+                    <div class="cart-qty">
+                        <button data-cart-dec="${p.id}" aria-label="Decrease">−</button>
+                        <span>${c.qty}</span>
+                        <button data-cart-inc="${p.id}" aria-label="Increase">+</button>
+                    </div>
+                    <span class="cart-item-line">${formatIQD(lineTotal)}</span>
+                </div>
+            </div>
+        `;
+        cartBody.appendChild(item);
+    });
+
+    $('#cart-items-count').textContent = itemCount + ' piece' + (itemCount !== 1 ? 's' : '');
+    $('#cart-total').textContent = formatIQD(total);
+
+    // Wire item handlers
+    $$('[data-cart-remove]', cartBody).forEach(b => {
+        b.addEventListener('click', () => removeFromCart(parseInt(b.dataset.cartRemove)));
+    });
+    $$('[data-cart-inc]', cartBody).forEach(b => {
+        b.addEventListener('click', () => updateCartQty(parseInt(b.dataset.cartInc), 1));
+    });
+    $$('[data-cart-dec]', cartBody).forEach(b => {
+        b.addEventListener('click', () => updateCartQty(parseInt(b.dataset.cartDec), -1));
+    });
+}
+
+function openCart() {
+    renderCart();
+    cartDrawer.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeCart() {
+    cartDrawer.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+}
+
+$('#cart-btn').addEventListener('click', openCart);
+
+$$('[data-cart-close]').forEach(el => {
+    el.addEventListener('click', closeCart);
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && cartDrawer.getAttribute('aria-hidden') === 'false') closeCart();
+});
+
+$('#cart-clear').addEventListener('click', () => {
+    if (cart.length === 0) return;
+    if (confirm('Remove all pieces from your cart?')) {
+        clearCart();
+    }
+});
+
+// Send cart order to WhatsApp
+$('#cart-order').addEventListener('click', () => {
+    if (cart.length === 0) return;
+
+    let total = 0;
+    let totalQty = 0;
+    const lines = cart.map((c, i) => {
+        const p = products.find(x => x.id === c.id);
+        if (!p) return '';
+        const unit = priceToNumber(p.price);
+        const lineTotal = unit * c.qty;
+        total += lineTotal;
+        totalQty += c.qty;
+        return `${i + 1}. Ref. ${p.ref}\n   Quantity: ${c.qty}\n   Price: ${p.price}\n   Subtotal: ${formatIQD(lineTotal)}`;
+    }).filter(Boolean).join('\n\n');
+
+    const msg = `Hello Aster Luxury,\n\nI would like to order the following pieces:\n\n${lines}\n\n────────────────\nTotal pieces: ${totalQty}\nEstimated total: ${formatIQD(total)}\n\nPlease confirm availability and delivery details. Thank you!`;
+
+    window.open(`https://wa.me/${WA}?text=${encodeURIComponent(msg)}`, '_blank');
+});
+
+// ==========================================================
 // INIT
 // ==========================================================
 updateCounts();
 renderGrid();
 updateFavCount();
+updateCartCount();
+renderCart();

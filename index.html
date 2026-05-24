@@ -50,6 +50,10 @@
             <i class="far fa-heart"></i>
             <span class="dot-badge" id="fav-count"></span>
         </button>
+        <button class="icon-btn" id="cart-btn" aria-label="Cart">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="dot-badge" id="cart-count"></span>
+        </button>
         <button class="menu-toggle" id="menu-toggle" aria-label="Menu">
             <span></span><span></span>
         </button>
@@ -97,6 +101,57 @@
         </a>
     </div>
 </div>
+
+<!-- ============================================
+     CART DRAWER
+============================================ -->
+<aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+    <div class="cart-bg" data-cart-close></div>
+    <div class="cart-panel">
+        <header class="cart-head">
+            <div>
+                <span class="cart-eyebrow">Your Selection</span>
+                <h3 class="cart-title">The <em>Cart</em></h3>
+            </div>
+            <button class="icon-btn" data-cart-close aria-label="Close cart">
+                <i class="fas fa-times"></i>
+            </button>
+        </header>
+
+        <div class="cart-body" id="cart-body">
+            <!-- Items injected here -->
+        </div>
+
+        <div class="cart-empty" id="cart-empty">
+            <span class="empty-mark">◆</span>
+            <h4>Your cart is empty</h4>
+            <p>Tap any piece to add it to your selection</p>
+            <button class="cta-link" data-cart-close>Browse the collection <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <footer class="cart-foot" id="cart-foot">
+            <div class="cart-summary">
+                <div class="cart-row">
+                    <span>Items</span>
+                    <span id="cart-items-count">0</span>
+                </div>
+                <div class="cart-row total">
+                    <span>Total</span>
+                    <span id="cart-total">0 IQD</span>
+                </div>
+                <p class="cart-note">
+                    <i class="fas fa-info-circle"></i>
+                    Final total confirmed on WhatsApp. Delivery available across Iraq.
+                </p>
+            </div>
+            <button class="cta cta-block" id="cart-order">
+                <span><i class="fab fa-whatsapp"></i> Send Order via WhatsApp</span>
+                <span class="cta-arrow"><i class="fas fa-arrow-right"></i></span>
+            </button>
+            <button class="cart-clear" id="cart-clear">Clear cart</button>
+        </footer>
+    </div>
+</aside>
 
 <!-- ============================================
      HERO
@@ -435,9 +490,12 @@
                     </div>
                 </div>
 
-                <button class="cta cta-block" id="modal-order">
-                    <span><i class="fab fa-whatsapp"></i> Order via WhatsApp</span>
+                <button class="cta cta-block" id="modal-add">
+                    <span><i class="fas fa-plus"></i> Add to Cart</span>
                     <span class="cta-arrow"><i class="fas fa-arrow-right"></i></span>
+                </button>
+                <button class="cta-link cart-quick-buy" id="modal-order">
+                    <i class="fab fa-whatsapp"></i> Order this piece now
                 </button>
             </div>
         </div>

@@ -1958,6 +1958,403 @@ footer {
 }
 
 /* ==========================================================
+   CART DRAWER
+   ========================================================== */
+.cart-drawer {
+    position: fixed;
+    inset: 0;
+    z-index: 400;
+    pointer-events: none;
+}
+
+.cart-drawer[aria-hidden="false"] {
+    pointer-events: auto;
+}
+
+.cart-bg {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in oklab, var(--ink) 60%, transparent);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+}
+
+.cart-drawer[aria-hidden="false"] .cart-bg {
+    opacity: 1;
+}
+
+.cart-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 460px;
+    height: 100%;
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.5s var(--ease);
+    box-shadow: -20px 0 60px -20px rgba(0, 0, 0, 0.2);
+}
+
+.cart-drawer[aria-hidden="false"] .cart-panel {
+    transform: translateX(0);
+}
+
+.cart-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: clamp(1.5rem, 3vw, 2rem);
+    border-bottom: 1px solid var(--line);
+    flex-shrink: 0;
+}
+
+.cart-eyebrow {
+    display: block;
+    font-size: 0.7rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 6px;
+}
+
+.cart-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.01em;
+}
+
+.cart-title em {
+    color: var(--accent);
+}
+
+.cart-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: clamp(1rem, 2vw, 1.5rem);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.cart-body::-webkit-scrollbar {
+    width: 4px;
+}
+
+.cart-body::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 2px;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 84px 1fr;
+    gap: 14px;
+    padding: 12px;
+    background: var(--paper-warm);
+    border-radius: var(--r-md);
+    transition: background 0.25s var(--ease);
+    animation: cartItemIn 0.4s var(--ease) both;
+}
+
+@keyframes cartItemIn {
+    from { opacity: 0; transform: translateX(20px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+.cart-item img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--r-sm);
+    background: var(--bone);
+}
+
+.cart-item-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+}
+
+.cart-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.cart-item-meta {
+    flex: 1;
+    min-width: 0;
+}
+
+.cart-item-ref {
+    display: block;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.cart-item-name {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
+    margin-bottom: 2px;
+}
+
+.cart-item-name em {
+    color: var(--accent);
+    margin-right: 2px;
+}
+
+.cart-item-price {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--muted);
+}
+
+.cart-item-remove {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    color: var(--muted);
+    font-size: 0.7rem;
+    transition: all 0.25s var(--ease);
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+}
+
+.cart-item-remove:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.cart-item-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 8px;
+}
+
+.cart-qty {
+    display: inline-flex;
+    align-items: center;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--r-pill);
+    padding: 2px;
+}
+
+.cart-qty button {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    color: var(--ink);
+    font-size: 0.95rem;
+    transition: background 0.2s var(--ease);
+    display: grid;
+    place-items: center;
+}
+
+.cart-qty button:hover {
+    background: var(--ink);
+    color: var(--paper);
+}
+
+.cart-qty span {
+    min-width: 24px;
+    text-align: center;
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    color: var(--ink);
+}
+
+.cart-item-line {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--ink);
+    font-weight: 500;
+}
+
+.cart-empty {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: clamp(2rem, 4vw, 3rem);
+    gap: 10px;
+}
+
+.cart-empty .empty-mark {
+    font-size: 2rem;
+    color: var(--accent-light);
+    margin-bottom: 8px;
+}
+
+.cart-empty h4 {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+}
+
+.cart-empty p {
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+}
+
+.cart-foot {
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+    flex-shrink: 0;
+}
+
+.cart-summary {
+    margin-bottom: 16px;
+}
+
+.cart-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+}
+
+.cart-row.total {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    margin-top: 8px;
+    padding-top: 12px;
+    letter-spacing: -0.01em;
+}
+
+.cart-row.total span:last-child {
+    font-style: italic;
+    color: var(--accent);
+}
+
+.cart-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 10px 14px;
+    background: var(--paper-warm);
+    border-radius: var(--r-md);
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.5;
+}
+
+.cart-note i {
+    color: var(--accent);
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.cart-clear {
+    display: block;
+    margin: 12px auto 0;
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.25s;
+}
+
+.cart-clear:hover {
+    color: var(--ink);
+}
+
+/* When cart empty - hide foot */
+.cart-drawer.empty .cart-body { display: none; }
+.cart-drawer:not(.empty) .cart-empty { display: none; }
+.cart-drawer.empty .cart-foot { display: none; }
+
+/* Cart count badge — accent color */
+#cart-count {
+    background: var(--ink);
+}
+
+/* Quick buy link in modal */
+.cart-quick-buy {
+    margin-top: 12px;
+    width: 100%;
+    justify-content: center;
+}
+
+/* "In cart" state on product cards */
+.heart-btn.in-cart-pulse {
+    animation: cartPulse 0.6s var(--ease);
+}
+
+@keyframes cartPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); background: var(--accent); color: var(--paper); }
+    100% { transform: scale(1); }
+}
+
+/* Card "Added" indicator */
+.card.in-cart .card-frame::before {
+    content: 'In Cart';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--ink);
+    color: var(--paper);
+    padding: 8px 18px;
+    border-radius: var(--r-pill);
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s var(--ease);
+}
+
+@media (hover: hover) {
+    .card.in-cart:hover .card-frame::before {
+        opacity: 1;
+    }
+}
+
+/* Mobile cart drawer */
+@media (max-width: 480px) {
+    .cart-panel {
+        max-width: 100%;
+    }
+}
+
+/* ==========================================================
    TOAST
    ========================================================== */
 .toast {

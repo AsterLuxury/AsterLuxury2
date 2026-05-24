@@ -2020,21 +2020,25 @@ footer .logo-main {
     }
 
     .product-actions .whatsapp-btn {
-        font-size: 0.7rem;
-        padding: 11px 14px;
-        gap: 8px;
-        letter-spacing: 0.1em;
-        min-height: 40px;
+        font-size: 0.72rem;
+        padding: 11px 10px;
+        gap: 6px;
+        letter-spacing: 0.04em;
+        min-height: 42px;
         line-height: 1;
+        white-space: nowrap;
+        overflow: hidden;
     }
 
     .product-actions .whatsapp-btn span {
         display: inline-block;
+        white-space: nowrap;
     }
 
     .product-actions .whatsapp-btn i {
-        font-size: 1rem;
+        font-size: 0.95rem;
         margin: 0;
+        flex-shrink: 0;
     }
 
     .product-fav {
@@ -2157,14 +2161,14 @@ footer .logo-main {
     }
 
     .product-actions .whatsapp-btn {
-        font-size: 0.62rem;
-        padding: 10px 8px;
-        gap: 6px;
-        letter-spacing: 0.08em;
+        font-size: 0.65rem;
+        padding: 10px 6px;
+        gap: 5px;
+        letter-spacing: 0;
     }
 
     .product-actions .whatsapp-btn i {
-        font-size: 0.95rem;
+        font-size: 0.9rem;
     }
 
     .hero-cta {
